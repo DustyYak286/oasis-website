@@ -1,7 +1,7 @@
 # Oasis Website - Product Requirements Document (PRD)
 
 **Date:** 14 December 2025  
-**Author:** David Bratu  
+**Author:** David
 **Purpose:** This PRD outlines the detailed specifications for the Oasis marketing and contact website, which will serve as the primary web presence for the platform. The website is primarily a **frontend marketing and contact point**; no complex backend functionality is required beyond basic form submission.  
 
 ---
@@ -41,173 +41,124 @@ Oasis is a sustainable, offline-first educational platform that brings quality e
 
 ## 3. Site Structure & Content
 
-### **3.1 Hero / Landing Section**
+### **3.1 Main Page (Home / Product Focus)**
 
-**Purpose:** Make an immediate impact and communicate the mission.  
+**Purpose:** Introduce the product, explain its value, and capture interest.  
 
-**Content:**  
+**Sections:**  
+
+#### Hero / Landing Section
 - Headline: *“Bringing Quality Education Anywhere”*  
 - Subheadline: *“A self-contained educational platform for schools without stable internet or electricity.”*  
-- CTA Buttons:
-  - *“Learn More”* → scrolls to Problem/Solution section  
+- CTA Buttons:  
+  - *“Learn More”* → scrolls to Problem/Solution  
   - *“Get Involved”* → scrolls to contact/lead form  
 - Visuals: Hero illustration or animation showing students interacting with Oasis devices in classrooms  
 
-**Design Notes:**  
-- Full-width hero with immersive visuals  
-- Animated subtle micro-interactions for CTA buttons  
-- Mobile-optimized layout with readable typography  
-
----
-
-### **3.2 Problem / Why It Matters**
-
-**Purpose:** Highlight the global educational access gap and the challenges schools face.  
-
-**Content:**  
-- Statistics:  
-  - *“Over 250 million children worldwide lack access to digital education.”*  
-  - Highlight issues like low connectivity and unstable power  
-- Credibility: Cite UNESCO or relevant sources  
+#### Problem / Why It Matters
+- Statistics highlighting the educational access gap  
+- Short, impactful text emphasizing low-connectivity and low-power challenges  
+- Credibility: cite UNESCO/NGO stats  
 - Optional graphic contrasting connected vs. unconnected classrooms  
 
-**Design Notes:**  
-- Use card or split-section layout  
-- Minimal text with impactful visuals  
-- Maintain inspirational yet professional tone  
+#### The Solution – Oasis Platform
+- Key points in card/icon format:  
+  1. Offline-first  
+  2. Low-power  
+  3. Local content access  
+  4. AI Learning Assistant  
+  5. Easy deployment via Raspberry Pi mini-server  
+- Visuals/icons or optional GIF/video  
 
----
-
-### **3.3 The Solution – Oasis Platform**
-
-**Purpose:** Explain how Oasis directly addresses the identified problems.  
-
-**Content:**  
-- Key Points (cards/icons format):  
-  1. **Offline-first:** Works without internet  
-  2. **Low-power:** Optimized for unstable electricity environments  
-  3. **Local content access:** Lessons, quizzes, presentations stored locally  
-  4. **AI Learning Assistant:** Supports teachers and students  
-  5. **Easy deployment:** Raspberry Pi mini-server setup  
-
-**Design Notes:**  
-- Interactive cards or hover animations  
-- Consistent iconography and color palette matching brand  
-- Optional animated GIF or short explainer video  
-
----
-
-### **3.4 How It Works / System Overview**
-
-**Purpose:** Provide an intuitive understanding of the platform’s workflow without technical complexity.  
-
-**Content:**  
-- Flow diagram: Teacher uploads content → Raspberry Pi mini-server → Students connect wirelessly → AI assistant support  
-- Short bullet points explaining setup, local networking, and AI assistance  
+#### How It Works / System Overview
+- Flow diagram: Teacher uploads content → Raspberry Pi → Students connect wirelessly → AI assistant support  
+- Short bullet points explaining setup, networking, and AI assistance  
 - Tagline: *“No internet? No problem.”*  
 
-**Design Notes:**  
-- Visual-first layout  
-- Use modern infographic style with clean lines  
-- Ensure accessibility (screen readers, alt text for diagrams)  
-
----
-
-### **3.5 Impact / Pilot Results**
-
-**Purpose:** Build trust and credibility via measurable impact and social proof.  
-
-**Content:**  
-- Key metrics:
-  - Number of schools reached  
-  - Number of students impacted  
-  - Feedback or quotes from teachers  
+#### Impact / Pilot Results
+- Key metrics: schools reached, students impacted, feedback from teachers  
 - Before/after visuals or infographic comparisons  
-- Optional video testimonial  
+- Optional testimonial video  
 
-**Design Notes:**  
-- Sectioned layout with statistics highlighted  
-- Minimal text, large numbers for emphasis  
-- Use animation to draw attention to key metrics  
+#### Call to Action / Get Involved
+- Form fields: Name, Email, Interest (Pilot / Partner / Donation / Newsletter)  
+- Strong inspirational copy: *“Join us in bridging the education gap worldwide.”*  
+- Buttons per interest type  
+- Highlighted, attention-grabbing section  
 
 ---
 
-### **3.6 Partners & Recognition**
+### **3.2 About Us Page**
 
-**Purpose:** Highlight credibility, recognition, and partnerships.  
+**Purpose:** Build credibility and tell the story of the team behind Oasis.  
 
 **Content:**  
-- Logos: UNESCO, Nestlé GYGS, pilot schools, hackathon awards  
-- Short description: *“Recognized globally for innovation in education access.”*  
+- **Our Story:** How the team started, vision, and motivation  
+- **Mission & Values:** Emphasize offline-first education, sustainability, innovation  
+- **Team Profiles:** Photos, names, roles, short bios (include awards/recognitions)  
+- **Partners & Recognition:** Logos of UNESCO, Nestlé GYGS, hackathon awards, pilot schools (DO NOT INCLUDE YET)
+- Optional callout for press mentions or media features  
 
 **Design Notes:**  
-- Grid layout for logos, hover animations to show details if needed  
-- Maintain uniform sizing and spacing  
+- Human-centered visuals: team photos, candid shots, or illustrations  
+- Inspirational tone with a professional layout  
+- Grid or card-based layout for team profiles  
 
 ---
 
-### **3.7 Call to Action / Get Involved**
+### **3.3 Blog Page**
 
-**Purpose:** Convert visitors into leads or partners.  
+**Purpose:** Share stories, updates, pilot results, news, and educational insights.  
 
 **Content:**  
-- Form fields: Name, Email, Organization, Interest (Pilot / Partner / Donation / Newsletter)  
-- CTA buttons per interest type  
-- Inspirational copy: *“Join us in bridging the education gap worldwide.”*  
+- Blog listing with titles, short excerpt, author, and publish date  
+- Individual blog post pages with header image, article body, optional images/graphics  
+- Categories or tags for easier navigation (optional)  
+- CTA at the end: *“Want to get involved or learn more? Contact us.”*  
 
 **Design Notes:**  
-- Highlighted section with strong visual contrast  
-- Inline form validation and accessible error messages  
-- Responsive design for mobile and tablet  
+- Clean, readable typography  
+- Easy navigation between posts  
+- Responsive layout for mobile and tablet  
 
 ---
 
-### **3.8 Footer**
+### **3.4 Footer (Site-wide)**
 
-**Purpose:** Provide essential navigation and contact information.  
+**Purpose:** Provide navigation and contact info.  
 
 **Content:**  
-- Links: About, How It Works, Impact, Contact, Privacy Policy, Social Media  
-- Copyright statement  
-- Optional small note: “Open-source components available on GitHub”  
-
-**Design Notes:**  
-- Clean, minimal design  
-- Include micro-interactions for social media links  
+- Links: Home, About Us, Blog, Contact, Privacy Policy, Social Media  
+- Copyright text  
 
 ---
 
-## 4. Future Sections (do not implement yet)
-
-- **Blog / Updates:** Share pilot progress, news, and press mentions  
-- **FAQ:** Address common questions about deployment, setup, and impact  
-- **Resource Downloads:** PDFs for teachers, pilot guides, or partner decks  
-- **Multilingual Support:** English, optionally French or Spanish for target regions  
-
----
-
-## 5. UX & Design Guidelines
+## 4. UX & Design Guidelines
 
 - Modern, professional, and inspirational tone  
 - Clean typography, generous whitespace  
 - Mobile-first responsive design  
-- Accessible: alt text, semantic HTML, screen reader-friendly  
+- Accessibility: alt text, semantic HTML, screen reader-friendly  
 - Interactive micro-animations for engagement (hover, scroll-triggered)  
-- Color palette: aligned with Oasis branding; earth tones + clean tech-inspired accent colors  
+- Color palette: aligned with Oasis branding (earth tones + tech-inspired accent colors)  
 
 ---
 
-## 6. SEO & Analytics
+## 5. SEO & Analytics
 
-- Page-level SEO: descriptive titles, meta descriptions, Open Graph, and Twitter cards  
+- Page-level SEO: descriptive titles, meta descriptions, Open Graph, Twitter cards  
 - Structured data (FAQ, organization, partnership recognition)  
 - Track CTA engagement, form submissions, downloads  
-- Analytics: Plausible or GA4 integration  
+- Analytics: Plausible or GA4 integration   
 
 ---
 
-## 7. Notes / Recommendations
+## 6. Notes / Recommendations
 
 - **Content-first approach:** prioritize clear, inspirational copy and visuals over technical features  
-- **Scalable:** the site should support future features like blog, resource downloads, multilingual support  
-- **Lightweight and fast:** even though no performance restrictions exist, a fast and responsive site improves credibility  
+- **Scalable:** the site should support future features like multilingual support, resources downloads, and expanded blog functionality  
+- **Fast & lightweight:** improves credibility, SEO, and engagement even if performance is not restricted  
+
+---
+
+**End of PRD**
