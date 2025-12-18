@@ -7,7 +7,6 @@ import {
   BookOpen,
   Bot,
   Server,
-  Sparkles,
 } from "lucide-react";
 import { Section } from "@/components/layout";
 import { Card, CardContent } from "@/components/ui/card";
@@ -126,17 +125,6 @@ export function SolutionSection() {
           </motion.div>
         ))}
       </div>
-
-      <motion.div
-        className="mt-12 flex items-center justify-center gap-2 text-oasis-primary"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.6 }}
-      >
-        <Sparkles className="h-5 w-5" />
-        <span className="font-medium">No internet? No problem.</span>
-      </motion.div>
     </Section>
   );
 }

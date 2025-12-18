@@ -3,20 +3,21 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Container } from "./Container";
 
 const navLinks = [
-  { href: "#problem", label: "The Problem" },
-  { href: "#solution", label: "Our Solution" },
-  { href: "#how-it-works", label: "How It Works" },
-  { href: "#impact", label: "Impact" },
+  { href: "/", label: "Product", isAnchor: false },
+  { href: "/about", label: "About Us", isAnchor: false },
+  { href: "/blog", label: "Blog", isAnchor: false },
 ];
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   const scrollToSection = (href: string) => {
     setIsMenuOpen(false);
@@ -24,6 +25,22 @@ export function Header() {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    link: { href: string; isAnchor: boolean }
+  ) => {
+    setIsMenuOpen(false);
+    if (link.isAnchor) {
+      e.preventDefault();
+      scrollToSection(link.href);
+    } else if (link.href === "/" && pathname === "/") {
+      // Prevent navigation and scroll to top if already on home page
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    // For other pages, Link component will handle navigation normally
   };
 
   return (
@@ -42,17 +59,32 @@ export function Header() {
             />
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <button
-                key={link.href}
-                onClick={() => scrollToSection(link.href)}
-                className="text-sm font-medium text-gray-600 hover:text-oasis-primary transition-colors"
-              >
-                {link.label}
-              </button>
-            ))}
+          {/* Desktop Navigation - Centered */}
+          <div className="hidden md:flex items-center gap-2 absolute left-1/2 transform -translate-x-1/2">
+            {navLinks.map((link, index) => {
+              const isActive = pathname === link.href;
+              return (
+                <div key={link.href} className="flex items-center">
+                  {index > 0 && (
+                    <span className="text-gray-400 mx-2">/</span>
+                  )}
+                  <Link
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link)}
+                    className={cn(
+                      "text-sm font-medium text-gray-600 hover:text-oasis-primary transition-colors",
+                      isActive && "underline decoration-2 underline-offset-4 decoration-oasis-primary"
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Get Involved Button */}
+          <div className="hidden md:flex">
             <Button
               onClick={() => scrollToSection("#contact")}
               className="bg-oasis-primary hover:bg-oasis-primary-dark"
@@ -83,15 +115,22 @@ export function Header() {
           )}
         >
           <div className="flex flex-col gap-4">
-            {navLinks.map((link) => (
-              <button
-                key={link.href}
-                onClick={() => scrollToSection(link.href)}
-                className="text-left text-sm font-medium text-gray-600 hover:text-oasis-primary transition-colors"
-              >
-                {link.label}
-              </button>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link)}
+                  className={cn(
+                    "text-left text-sm font-medium text-gray-600 hover:text-oasis-primary transition-colors",
+                    isActive && "underline decoration-2 underline-offset-4 decoration-oasis-primary"
+                  )}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
             <Button
               onClick={() => scrollToSection("#contact")}
               className="bg-oasis-primary hover:bg-oasis-primary-dark w-full"

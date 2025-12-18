@@ -112,7 +112,7 @@ export function CTASection() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <CheckCircle className="h-5 w-5 text-oasis-accent-green flex-shrink-0" />
+                <CheckCircle className="h-5 w-5 text-oasis-accent-red flex-shrink-0" />
                 <span>{item}</span>
               </motion.div>
             ))}
@@ -130,7 +130,7 @@ export function CTASection() {
             <CardContent className="p-6 md:p-8">
               {submitStatus === "success" ? (
                 <div className="text-center py-8">
-                  <CheckCircle className="h-16 w-16 text-oasis-accent-green mx-auto mb-4" />
+                  <CheckCircle className="h-16 w-16 text-oasis-accent-red mx-auto mb-4" />
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">
                     Thank You!
                   </h3>
