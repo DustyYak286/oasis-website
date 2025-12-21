@@ -28,7 +28,7 @@ export function Section({
   return (
     <section
       id={id}
-      className={cn("py-16 md:py-24", bgClasses[background], className)}
+      className={cn("py-16 md:py-24 scroll-mt-24", bgClasses[background], className)}
     >
       <Container className={containerClassName}>
         <motion.div

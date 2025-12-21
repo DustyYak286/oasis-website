@@ -52,20 +52,11 @@ export function HowItWorksSection() {
   return (
     <Section id="how-it-works" background="secondary">
       <div className="text-center mb-16">
-        <motion.span
-          className="text-sm font-semibold text-oasis-primary uppercase tracking-wider"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          Simple Process
-        </motion.span>
         <motion.h2
-          className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mt-2 mb-4"
+          className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
         >
           How It Works
         </motion.h2>
