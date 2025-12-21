@@ -38,6 +38,12 @@ const testimonials = [
   },
 ];
 
+function getQuoteSizeClass(quoteLength: number): string {
+  if (quoteLength > 160) return "text-lg md:text-xl";
+  if (quoteLength > 130) return "text-xl md:text-2xl";
+  return "text-2xl md:text-3xl";
+}
+
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
   const [count, setCount] = useState(0);
   const [hasAnimated, setHasAnimated] = useState(false);
@@ -147,33 +153,35 @@ export function ImpactSection() {
           <CardContent className="p-8 md:p-12">
             <Quote className="h-12 w-12 text-oasis-primary/20 mb-6" />
 
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentTestimonial}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
-              >
-                <blockquote className="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed">
-                  &quot;{testimonials[currentTestimonial].quote}&quot;
-                </blockquote>
+            <div className="h-[200px] md:h-[180px]">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentTestimonial}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <blockquote className={`${getQuoteSizeClass(testimonials[currentTestimonial].quote.length)} text-gray-700 mb-8 leading-relaxed`}>
+                    &quot;{testimonials[currentTestimonial].quote}&quot;
+                  </blockquote>
 
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-full bg-oasis-primary/10 flex items-center justify-center text-oasis-primary font-bold text-xl">
-                    {testimonials[currentTestimonial].name[0]}
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900">
-                      {testimonials[currentTestimonial].name}
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-full bg-oasis-primary/10 flex items-center justify-center text-oasis-primary font-bold text-xl">
+                      {testimonials[currentTestimonial].name[0]}
                     </div>
-                    <div className="text-gray-500 text-sm">
-                      {testimonials[currentTestimonial].role}
+                    <div>
+                      <div className="font-semibold text-gray-900">
+                        {testimonials[currentTestimonial].name}
+                      </div>
+                      <div className="text-gray-500 text-sm">
+                        {testimonials[currentTestimonial].role}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+                </motion.div>
+              </AnimatePresence>
+            </div>
 
             {/* Navigation */}
             <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
