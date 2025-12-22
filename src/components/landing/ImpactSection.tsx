@@ -24,7 +24,7 @@ const testimonials = [
   },
   {
     quote:
-      "The solar-powered setup means we never lose a learning day due to power outages. Our students are more engaged and motivated than ever before.",
+      "The low-power setup means we never lose a learning day due to power outages. Our students are more engaged and motivated than ever before.",
     name: "Emmanuel Okonkwo",
     role: "School Administrator, Nigeria",
     image: "/testimonials/admin-1.jpg",

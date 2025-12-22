@@ -1,0 +1,148 @@
+"use client";
+
+import { motion } from "motion/react";
+import { WifiOff, BatteryLow, BookOpen, Bot } from "lucide-react";
+
+const features = [
+  {
+    icon: WifiOff,
+    title: "Works Without Internet",
+    subtitle: "100% Offline Capability",
+    description:
+      "Oasis operates as a self-contained local server. Teachers upload content, students connect wirelessly—the internet becomes optional, not required.",
+    detail: "Syncs automatically when connectivity is available",
+    imagePlaceholder: "Device with WiFi signal illustration",
+    imagePosition: "right" as const,
+  },
+  {
+    icon: BatteryLow,
+    title: "Runs on Almost Nothing",
+    subtitle: "Less than 10 watts per device",
+    description:
+      "While traditional digital learning centers demand hundreds of watts, Oasis needs less power than a single light bulb. It works even where electricity is limited or intermittent.",
+    detail: "Built on energy-efficient Raspberry Pi hardware",
+    imagePlaceholder: "Device with power efficiency visual",
+    imagePosition: "left" as const,
+  },
+  {
+    icon: BookOpen,
+    title: "Curriculum at Their Fingertips",
+    subtitle: "Teacher-Controlled Content",
+    description:
+      "Teachers curate and upload curriculum-aligned materials, presentations, and assessments. Entire classrooms access content simultaneously—truly shared learning.",
+    detail: "Simple USB upload or periodic connectivity sync",
+    imagePlaceholder: "Teacher upload interface concept",
+    imagePosition: "right" as const,
+  },
+  {
+    icon: Bot,
+    title: "A Tutor for Every Student",
+    subtitle: "AI-Powered Learning Assistant",
+    description:
+      "An intelligent assistant that adapts to each student's pace, answers questions, explains difficult concepts, and guides independent study—all while completely offline.",
+    detail: "Also helps teachers organize content and generate quizzes",
+    imagePlaceholder: "Student using AI chat interface",
+    imagePosition: "left" as const,
+  },
+];
+
+export function SolutionFeatures() {
+  return (
+    <div className="bg-gradient-to-b from-oasis-primary/30 via-oasis-primary/50 to-oasis-primary py-16 lg:py-24 relative overflow-hidden">
+      {/* Decorative dot pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(circle, white 1px, transparent 1px)`,
+            backgroundSize: "24px 24px",
+          }}
+        />
+      </div>
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <h3 className="text-oasis-primary-light/80 text-sm font-medium tracking-wide uppercase mb-4">
+            A Different Approach
+          </h3>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">
+            How Oasis Works
+          </h2>
+        </motion.div>
+
+        <div className="space-y-16 lg:space-y-24">
+          {features.map((feature, index) => (
+            <div
+              key={index}
+              className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center"
+            >
+              {/* Image/Render placeholder */}
+              <motion.div
+                className={`relative aspect-[4/3] rounded-2xl overflow-hidden ${
+                  feature.imagePosition === "right" ? "lg:order-2" : "lg:order-1"
+                }`}
+                initial={{
+                  opacity: 0,
+                  x: feature.imagePosition === "right" ? 50 : -50,
+                }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+              >
+                <div className="absolute inset-0 bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20">
+                  <div className="text-center text-white/60 px-4">
+                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-white/10 flex items-center justify-center">
+                      <feature.icon className="w-8 h-8" />
+                    </div>
+                    <span className="text-sm">{feature.imagePlaceholder}</span>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Content */}
+              <motion.div
+                className={`${
+                  feature.imagePosition === "right" ? "lg:order-1" : "lg:order-2"
+                }`}
+                initial={{
+                  opacity: 0,
+                  x: feature.imagePosition === "right" ? -50 : 50,
+                }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
+                    <feature.icon className="w-5 h-5 text-white" />
+                  </div>
+                  <span className="text-oasis-primary-light/80 text-sm font-medium">
+                    {feature.subtitle}
+                  </span>
+                </div>
+
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
+                  {feature.title}
+                </h3>
+
+                <p className="text-white/80 text-lg leading-relaxed mb-4">
+                  {feature.description}
+                </p>
+
+                <p className="text-oasis-primary-light/70 text-sm flex items-center gap-2">
+                  <span className="w-1 h-1 rounded-full bg-oasis-primary-light/70" />
+                  {feature.detail}
+                </p>
+              </motion.div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}

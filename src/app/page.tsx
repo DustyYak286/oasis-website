@@ -1,8 +1,7 @@
 import { Header, Footer } from "@/components/layout";
 import {
   HeroSection,
-  ProblemSection,
-  SolutionSection,
+  ProblemSolutionSection,
   HowItWorksSection,
   ImpactSection,
   CTASection,
@@ -14,8 +13,7 @@ export default function Home() {
       <Header />
       <main>
         <HeroSection />
-        <ProblemSection />
-        <SolutionSection />
+        <ProblemSolutionSection />
         <HowItWorksSection />
         <ImpactSection />
         <CTASection />
