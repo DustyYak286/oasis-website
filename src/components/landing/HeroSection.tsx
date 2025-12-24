@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout";
+import { WavyBackground } from "@/components/ui/wavy-background";
 
 export function HeroSection() {
   const scrollToSection = (id: string) => {
@@ -14,45 +15,14 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-white via-oasis-secondary/30 to-white">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-30">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, rgb(63 132 229 / 0.15) 1px, transparent 0)`,
-            backgroundSize: "40px 40px",
-          }}
-        />
-      </div>
-
-      {/* Floating Elements */}
-      <motion.div
-        className="absolute top-1/4 left-[10%] w-64 h-64 rounded-full bg-oasis-primary/10 blur-3xl"
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        className="absolute bottom-1/4 right-[10%] w-72 h-72 rounded-full bg-oasis-accent-green/10 blur-3xl"
-        animate={{
-          scale: [1.2, 1, 1.2],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1,
-        }}
-      />
-
+    <WavyBackground
+      colors={["#B20D30", "#D4344F", "#468657", "#8B0A25", "#B20D30"]}
+      backgroundFill="white"
+      waveOpacity={0.3}
+      blur={15}
+      speed="slow"
+      containerClassName="min-h-screen"
+    >
       <Container className="relative z-10 pt-24 pb-16">
         <div className="text-center max-w-4xl mx-auto">
           {/* Headline */}
@@ -143,6 +113,6 @@ export function HeroSection() {
       >
         <ArrowDown className="h-6 w-6 text-gray-400" />
       </motion.div>
-    </section>
+    </WavyBackground>
   );
 }
