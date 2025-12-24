@@ -76,7 +76,7 @@ export function AnimatedStat({
         {formattedValue}
         {suffix}
       </div>
-      <div className="text-gray-300 font-medium mt-1">{label}</div>
+      <div className="font-medium mt-1" style={{ color: 'var(--background)' }}>{label}</div>
       {source && (
         <div className="text-gray-500 text-sm mt-1">— {source}</div>
       )}

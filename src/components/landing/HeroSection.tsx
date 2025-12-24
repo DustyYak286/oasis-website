@@ -34,14 +34,22 @@ export function HeroSection() {
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             Bringing Quality Education{" "}
-            <span className="relative">
-              <span className="relative z-10 text-oasis-primary drop-shadow-[0_2px_4px_rgba(255,255,255,0.8)]">Anywhere</span>
-              <motion.span
-                className="absolute bottom-2 left-0 right-0 h-3 bg-oasis-primary -z-0"
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 0.5, delay: 0.6 }}
-              />
+            <span className="text-oasis-primary drop-shadow-[0_2px_4px_rgba(255,255,255,0.8)]">
+              {"Anywhere".split("").map((letter, index) => (
+                <motion.span
+                  key={index}
+                  className="inline-block"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.4,
+                    delay: 0.8 + index * 0.05,
+                    ease: [0.215, 0.61, 0.355, 1]
+                  }}
+                >
+                  {letter}
+                </motion.span>
+              ))}
             </span>
           </motion.h1>
 
@@ -66,7 +74,7 @@ export function HeroSection() {
           >
             <Button
               size="lg"
-              onClick={() => scrollToSection("#problem")}
+              onClick={() => scrollToSection("#story")}
               className="bg-oasis-primary hover:bg-oasis-primary-dark text-white px-8 py-6 text-lg"
             >
               Learn More

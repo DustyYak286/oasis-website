@@ -76,7 +76,7 @@ export function TurningPoint() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 1.8 }}
         >
-          <span className="inline-block text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-oasis-primary-light">
+          <span className="inline-block text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold" style={{ color: 'var(--oasis-primary)' }}>
             This is Oasis.
           </span>
           <motion.div

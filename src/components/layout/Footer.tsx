@@ -24,7 +24,7 @@ export function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <Image
-              src="/Oasis Logo.png"
+              src="/images/oasis-logo.png"
               alt="Oasis"
               width={140}
               height={56}

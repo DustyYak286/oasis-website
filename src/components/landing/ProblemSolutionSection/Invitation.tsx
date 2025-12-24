@@ -57,6 +57,7 @@ export function Invitation() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
+              style={{ color: 'var(--accent-foreground)' }}
             >
               Fatima&apos;s story doesn&apos;t have to end in limitations.
             </motion.h2>
@@ -76,11 +77,12 @@ export function Invitation() {
             </motion.div>
 
             <motion.p
-              className="text-oasis-primary-light text-xl font-medium mb-8"
+              className="text-xl font-medium mb-8"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
+              style={{ color: 'var(--background)' }}
             >
               But Oasis only exists when people like you believe it should.
             </motion.p>

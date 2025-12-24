@@ -44,7 +44,7 @@ export function RealityStats() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h3 className="text-gray-400 text-sm font-medium tracking-wide uppercase mb-4">
+          <h3 className="text-sm font-medium tracking-wide uppercase mb-4" style={{ color: 'var(--oasis-primary-light)' }}>
             The Reality
           </h3>
         </motion.div>
@@ -91,7 +91,7 @@ export function RealityStats() {
                   className="mb-6"
                   valueClassName="text-5xl sm:text-6xl lg:text-7xl text-white"
                 />
-                <p className="text-gray-400 text-lg lg:text-xl leading-relaxed">
+                <p className="text-lg lg:text-xl leading-relaxed" style={{ color: 'var(--background)' }}>
                   {stat.context}
                 </p>
               </motion.div>

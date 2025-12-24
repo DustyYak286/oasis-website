@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import Image from "next/image";
 
 export function OpeningHook() {
   return (
@@ -30,13 +31,13 @@ export function OpeningHook() {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
-              {/* Placeholder - replace with actual image */}
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-700 via-gray-800 to-gray-900 flex items-center justify-center">
-                <div className="text-center text-gray-500">
-                  <div className="text-sm mb-2">Image Placeholder</div>
-                  <div className="text-xs">Child in classroom, curious expression</div>
-                </div>
-              </div>
+              <Image
+                src="/images/story.png"
+                alt="Child in classroom"
+                fill
+                className="object-cover -scale-x-100"
+                priority
+              />
               {/* Gradient overlay on image */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-gray-900/80" />
             </div>
@@ -45,7 +46,7 @@ export function OpeningHook() {
           {/* Text Section - 40% on desktop */}
           <div className="lg:col-span-2 text-white">
             <motion.p
-              className="text-oasis-primary-light text-sm font-medium tracking-wide uppercase mb-4"
+              className="text-oasis-primary-light text-xl font-medium tracking-wide uppercase mb-4 text-left"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -55,17 +56,18 @@ export function OpeningHook() {
             </motion.p>
 
             <motion.div
-              className="space-y-4 text-gray-300 text-lg leading-relaxed mb-6"
+              className="space-y-4 text-lg leading-relaxed mb-6"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
+              style={{ color: 'var(--background)' }}
             >
-              <p>
+              <p style={{ color: 'var(--background)' }}>
                 She walks three kilometers to school each day in a remote village.
                 She loves mathematics and dreams of becoming an engineer.
               </p>
-              <p className="text-gray-400">
+              <p className="text-gray-400" style={{ color: 'var(--background)' }}>
                 But like 1.3 billion other children, she doesn&apos;t have internet
                 access at home. And her school? No electricity.
               </p>
@@ -77,6 +79,7 @@ export function OpeningHook() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
+              style={{ fontSize: '35px' }}
             >
               Every child deserves a chance to learn.
             </motion.h2>
