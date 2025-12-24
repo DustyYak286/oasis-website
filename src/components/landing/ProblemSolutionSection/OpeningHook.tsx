@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "motion/react";
-import { AnimatedStat } from "./AnimatedStat";
 
 export function OpeningHook() {
   return (
@@ -17,8 +16,8 @@ export function OpeningHook() {
         <div className="absolute -top-3 left-[65%] w-[15%] h-8 bg-white/50 rounded-full blur-xl" />
       </div>
 
-      {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900" />
+      {/* Background - solid to match RealityStats */}
+      <div className="absolute inset-0 bg-gray-900" />
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 min-h-screen flex items-center">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-16 items-center w-full py-16 lg:py-0">
@@ -55,25 +54,15 @@ export function OpeningHook() {
               Her name is Fatima.
             </motion.p>
 
-            <motion.h2
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 leading-tight"
+            <motion.div
+              className="space-y-4 text-gray-300 text-lg leading-relaxed mb-6"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              Every child deserves a chance to learn.
-            </motion.h2>
-
-            <motion.div
-              className="space-y-4 text-gray-300 text-lg leading-relaxed mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
               <p>
-                She walks three kilometers to school each day in rural Kenya.
+                She walks three kilometers to school each day in a remote village.
                 She loves mathematics and dreams of becoming an engineer.
               </p>
               <p className="text-gray-400">
@@ -82,33 +71,19 @@ export function OpeningHook() {
               </p>
             </motion.div>
 
-            <AnimatedStat
-              value={1.3}
-              suffix=" billion"
-              label="children lack internet at home"
-              source="UNICEF"
-              className="bg-gray-800/50 rounded-xl p-6 border border-gray-700/50"
-              valueClassName="text-4xl sm:text-5xl text-oasis-primary-light"
-            />
+            <motion.h2
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              Every child deserves a chance to learn.
+            </motion.h2>
           </div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-      >
-        <motion.div
-          className="w-6 h-10 border-2 border-gray-600 rounded-full flex items-start justify-center p-2"
-          animate={{ y: [0, 5, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <div className="w-1 h-2 bg-gray-500 rounded-full" />
-        </motion.div>
-      </motion.div>
     </div>
   );
 }

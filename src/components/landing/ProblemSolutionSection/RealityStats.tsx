@@ -5,13 +5,14 @@ import { AnimatedStat } from "./AnimatedStat";
 
 const stats = [
   {
-    value: 200,
-    suffix: "M+",
-    label: "children attend schools without electricity",
+    value: 1.3,
+    suffix: "B",
+    label: "children lack internet access at home",
     context:
-      "When the sun sets, learning stops. Potential fades into darkness.",
-    imagePlaceholder: "Empty classroom without technology",
+      "In an increasingly connected world, over a billion young learners are left behind.",
+    imagePlaceholder: "Child looking at a disconnected device",
     imagePosition: "left" as const,
+    source: "UNICEF",
   },
   {
     value: 617,
@@ -23,22 +24,22 @@ const stats = [
     imagePosition: "right" as const,
   },
   {
-    value: 31,
-    suffix: "%",
-    label: "of primary schools in Sub-Saharan Africa have electricity",
+    value: 200,
+    suffix: "M+",
+    label: "children attend schools without electricity",
     context:
-      "The digital divide isn't about willpower—it's about infrastructure that simply doesn't exist.",
-    imagePlaceholder: "Remote rural school building",
+      "When the sun sets, learning stops. Potential fades into darkness.",
+    imagePlaceholder: "Empty classroom at dusk",
     imagePosition: "left" as const,
   },
 ];
 
 export function RealityStats() {
   return (
-    <div className="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700 py-16 lg:py-24">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="bg-gray-900">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-8 lg:pt-12 pb-16 lg:pb-24">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -64,7 +65,7 @@ export function RealityStats() {
                 initial={{ opacity: 0, x: stat.imagePosition === "left" ? -50 : 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
+                transition={{ duration: 0.6 }}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-gray-600 to-gray-800 flex items-center justify-center">
                   <span className="text-gray-500 text-sm text-center px-4">
@@ -81,7 +82,7 @@ export function RealityStats() {
                 initial={{ opacity: 0, x: stat.imagePosition === "left" ? 50 : -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
               >
                 <AnimatedStat
                   value={stat.value}
@@ -98,6 +99,9 @@ export function RealityStats() {
           ))}
         </div>
       </div>
+
+      {/* Bottom gradient to blend into TurningPoint */}
+      <div className="h-32 bg-gradient-to-b from-gray-900 to-gray-700" />
     </div>
   );
 }
