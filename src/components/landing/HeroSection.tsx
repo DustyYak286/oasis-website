@@ -15,16 +15,17 @@ export function HeroSection() {
   };
 
   return (
-    <WavyBackground
-      colors={["#B20D30", "#D4344F", "#468657", "#8B0A25", "#B20D30"]}
-      backgroundFill="white"
-      waveOpacity={0.3}
-      blur={15}
-      speed="slow"
-      containerClassName="min-h-screen"
-    >
-      <Container className="relative z-10 pt-24 pb-16">
-        <div className="text-center max-w-4xl mx-auto">
+    <section className="relative">
+      <WavyBackground
+        colors={["#3F84E5", "#6BA3F0", "#468657", "#2A5BA8"]}
+        backgroundFill="white"
+        waveOpacity={0.3}
+        blur={15}
+        speed="slow"
+        containerClassName="min-h-screen"
+      >
+        <Container className="relative z-10">
+          <div className="text-center max-w-4xl mx-auto">
           {/* Headline */}
           <motion.h1
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-gray-900 mb-6"
@@ -34,9 +35,9 @@ export function HeroSection() {
           >
             Bringing Quality Education{" "}
             <span className="relative">
-              <span className="relative z-10 text-oasis-primary">Anywhere</span>
+              <span className="relative z-10 text-oasis-primary drop-shadow-[0_2px_4px_rgba(255,255,255,0.8)]">Anywhere</span>
               <motion.span
-                className="absolute bottom-2 left-0 right-0 h-3 bg-oasis-primary/20 -z-0"
+                className="absolute bottom-2 left-0 right-0 h-3 bg-oasis-primary -z-0"
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
@@ -46,7 +47,7 @@ export function HeroSection() {
 
           {/* Subheadline */}
           <motion.p
-            className="text-lg sm:text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed"
+            className="text-lg sm:text-xl text-black mb-8 max-w-2xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -81,38 +82,18 @@ export function HeroSection() {
             </Button>
           </motion.div>
 
-          {/* Stats Preview */}
-          <motion.div
-            className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            {[
-              { value: "2.9B", label: "People lack internet" },
-              { value: "258M", label: "Children out of school" },
-              { value: "100%", label: "Offline capable" },
-              { value: "Solar", label: "Powered" },
-            ].map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-2xl md:text-3xl font-bold text-oasis-primary">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-gray-500">{stat.label}</div>
-              </div>
-            ))}
-          </motion.div>
-        </div>
-      </Container>
+          </div>
+        </Container>
+      </WavyBackground>
 
       {/* Scroll Indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
       >
         <ArrowDown className="h-6 w-6 text-gray-400" />
       </motion.div>
-    </WavyBackground>
+    </section>
   );
 }
