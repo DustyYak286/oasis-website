@@ -38,16 +38,6 @@ export function RealityStats() {
   return (
     <div className="bg-gray-900">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-8 lg:pt-12 pb-16 lg:pb-24">
-        <motion.div
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <h3 className="text-sm font-medium tracking-wide uppercase mb-4" style={{ color: 'var(--oasis-primary-light)' }}>
-            The Reality
-          </h3>
-        </motion.div>
 
         <div className="space-y-16 lg:space-y-24">
           {stats.map((stat, index) => (

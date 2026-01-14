@@ -57,7 +57,7 @@ export function Invitation() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              style={{ color: 'var(--accent-foreground)' }}
+              style={{ color: 'var(--accent-foreground)', fontSize: '36px' }}
             >
               Fatima&apos;s story doesn&apos;t have to end in limitations.
             </motion.h2>
@@ -69,7 +69,7 @@ export function Invitation() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <p>
+              <p style={{ color: 'var(--background)' }}>
                 With Oasis, she explores the mathematics she loves. She learns at
                 her own pace with an AI tutor by her side. She dreams bigger—because
                 now, she has the tools to make those dreams real.
@@ -82,7 +82,7 @@ export function Invitation() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              style={{ color: 'var(--background)' }}
+              style={{ color: 'var(--background)', fontSize: '18px' }}
             >
               But Oasis only exists when people like you believe it should.
             </motion.p>

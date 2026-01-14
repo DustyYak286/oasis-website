@@ -21,7 +21,7 @@ export function OpeningHook() {
       <div className="absolute inset-0 bg-gray-900" />
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 min-h-screen flex items-center">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-16 items-center w-full py-16 lg:py-0">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-4 items-center w-full py-16 lg:py-0">
           {/* Image Section - 60% on desktop */}
           <motion.div
             className="lg:col-span-3 relative"
@@ -38,13 +38,13 @@ export function OpeningHook() {
                 className="object-cover -scale-x-100"
                 priority
               />
-              {/* Gradient overlay on image */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-gray-900/80" />
+              {/* Gradient overlay on image - fades right side */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gray-900/30 to-gray-900" />
             </div>
           </motion.div>
 
-          {/* Text Section - 40% on desktop */}
-          <div className="lg:col-span-2 text-white">
+          {/* Text Section - 40% on desktop, pulled left to overlap faded image */}
+          <div className="lg:col-span-2 text-white lg:-ml-24 relative z-10">
             <motion.p
               className="text-oasis-primary-light text-xl font-medium tracking-wide uppercase mb-4 text-left"
               initial={{ opacity: 0, y: 20 }}
@@ -79,7 +79,7 @@ export function OpeningHook() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              style={{ fontSize: '35px' }}
+              style={{ fontSize: '35px', marginRight: '15px' }}
             >
               Every child deserves a chance to learn.
             </motion.h2>

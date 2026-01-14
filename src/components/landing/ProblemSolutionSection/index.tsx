@@ -1,6 +1,7 @@
 "use client";
 
 import { OpeningHook } from "./OpeningHook";
+import { TransitionBridge } from "./TransitionBridge";
 import { RealityStats } from "./RealityStats";
 import { TurningPoint } from "./TurningPoint";
 import { SolutionFeatures } from "./SolutionFeatures";
@@ -11,6 +12,9 @@ export function ProblemSolutionSection() {
     <section id="story" className="relative">
       {/* Beat 1: Opening Hook - Meet Fatima */}
       <OpeningHook />
+
+      {/* Beat 1.5: Transition Bridge - "Fatima is not alone" */}
+      <TransitionBridge />
 
       {/* Beat 2: The Reality - Statistics */}
       <RealityStats />
