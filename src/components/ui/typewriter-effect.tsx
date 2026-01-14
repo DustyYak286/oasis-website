@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { motion, stagger, useAnimate, useInView } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export const TypewriterEffect = ({
   words,
@@ -17,6 +17,7 @@ export const TypewriterEffect = ({
   cursorClassName?: string;
 }) => {
   const [isComplete, setIsComplete] = useState(false);
+  const hasAnimated = useRef(false);
 
   // split text inside of words into array of characters
   const wordsArray = words.map((word) => {
@@ -32,7 +33,8 @@ export const TypewriterEffect = ({
   const [scope, animate] = useAnimate();
   const isInView = useInView(scope, { margin: "-40% 0px -40% 0px" });
   useEffect(() => {
-    if (isInView) {
+    if (isInView && !hasAnimated.current) {
+      hasAnimated.current = true;
       animate(
         "span",
         {
@@ -49,7 +51,9 @@ export const TypewriterEffect = ({
 
       // Hide cursor after animation completes
       const animationDuration = totalChars * 0.1 + 0.3 + 0.5; // stagger delay * chars + duration + buffer
-      const timer = setTimeout(() => setIsComplete(true), animationDuration * 1000);
+      const timer = setTimeout(() => {
+        setIsComplete(true);
+      }, animationDuration * 1000);
       return () => clearTimeout(timer);
     }
   }, [isInView, animate, totalChars]);

@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "motion/react";
 import { AnimatedStat } from "./AnimatedStat";
 
 const stats = [
@@ -10,8 +9,6 @@ const stats = [
     label: "children lack internet access at home",
     context:
       "In an increasingly connected world, over a billion young learners are left behind.",
-    imagePlaceholder: "Child looking at a disconnected device",
-    imagePosition: "left" as const,
     source: "UNICEF",
   },
   {
@@ -20,8 +17,6 @@ const stats = [
     label: "cannot read a basic sentence",
     context:
       "Without quality materials, brilliant minds stay hidden. Dreams remain locked away.",
-    imagePlaceholder: "Children sharing worn textbook",
-    imagePosition: "right" as const,
   },
   {
     value: 200,
@@ -29,62 +24,37 @@ const stats = [
     label: "children attend schools without electricity",
     context:
       "When the sun sets, learning stops. Potential fades into darkness.",
-    imagePlaceholder: "Empty classroom at dusk",
-    imagePosition: "left" as const,
   },
 ];
 
-export function RealityStats() {
+interface RealityStatsProps {
+  startAnimation?: boolean;
+}
+
+export function RealityStats({ startAnimation }: RealityStatsProps) {
   return (
     <div className="bg-gray-900">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-8 lg:pt-12 pb-16 lg:pb-24">
-
-        <div className="space-y-16 lg:space-y-24">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 lg:pt-12 lg:pb-24">
+        {/* Stats Grid - 3 columns on desktop, stacked on mobile */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
           {stats.map((stat, index) => (
-            <div
-              key={index}
-              className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center ${
-                stat.imagePosition === "right" ? "lg:flex-row-reverse" : ""
-              }`}
-            >
-              {/* Image */}
-              <motion.div
-                className={`relative aspect-[4/3] rounded-2xl overflow-hidden ${
-                  stat.imagePosition === "right" ? "lg:order-2" : "lg:order-1"
-                }`}
-                initial={{ opacity: 0, x: stat.imagePosition === "left" ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6 }}
+            <div key={index} className="text-center">
+              <AnimatedStat
+                value={stat.value}
+                suffix={stat.suffix}
+                label={stat.label}
+                source={stat.source}
+                className="mb-4"
+                valueClassName="text-5xl sm:text-6xl lg:text-7xl text-white"
+                startAnimation={startAnimation}
+                animationDelay={index * 50}
+              />
+              <p
+                className="text-base lg:text-lg leading-relaxed max-w-xs mx-auto"
+                style={{ color: "var(--background)", opacity: startAnimation ? 1 : 0, transition: "opacity 0.5s ease-out", transitionDelay: `${index * 50 + 300}ms` }}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-600 to-gray-800 flex items-center justify-center">
-                  <span className="text-gray-500 text-sm text-center px-4">
-                    {stat.imagePlaceholder}
-                  </span>
-                </div>
-              </motion.div>
-
-              {/* Content */}
-              <motion.div
-                className={`${
-                  stat.imagePosition === "right" ? "lg:order-1" : "lg:order-2"
-                }`}
-                initial={{ opacity: 0, x: stat.imagePosition === "left" ? 50 : -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                <AnimatedStat
-                  value={stat.value}
-                  suffix={stat.suffix}
-                  label={stat.label}
-                  className="mb-6"
-                  valueClassName="text-5xl sm:text-6xl lg:text-7xl text-white"
-                />
-                <p className="text-lg lg:text-xl leading-relaxed" style={{ color: 'var(--background)' }}>
-                  {stat.context}
-                </p>
-              </motion.div>
+                {stat.context}
+              </p>
             </div>
           ))}
         </div>

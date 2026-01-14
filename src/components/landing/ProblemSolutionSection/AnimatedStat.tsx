@@ -12,6 +12,8 @@ interface AnimatedStatProps {
   className?: string;
   valueClassName?: string;
   duration?: number;
+  startAnimation?: boolean;
+  animationDelay?: number;
 }
 
 export function AnimatedStat({
@@ -23,16 +25,33 @@ export function AnimatedStat({
   className = "",
   valueClassName = "",
   duration = 1200,
+  startAnimation,
+  animationDelay = 0,
 }: AnimatedStatProps) {
   const [displayValue, setDisplayValue] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const hasAnimated = useRef(false);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
+  // Determine if we should start based on external trigger or inView
+  const shouldStart = startAnimation !== undefined ? startAnimation : isInView;
+
   useEffect(() => {
-    // Only start animation when in view and hasn't animated yet
-    if (!isInView || hasAnimated.current) return;
+    // Only start animation when triggered and hasn't animated yet
+    if (!shouldStart || hasAnimated.current) return;
     hasAnimated.current = true;
+
+    // Handle visibility with delay
+    const visibilityTimer = setTimeout(() => {
+      setIsVisible(true);
+    }, animationDelay);
+
+    return () => clearTimeout(visibilityTimer);
+  }, [shouldStart, animationDelay]);
+
+  useEffect(() => {
+    if (!isVisible) return;
 
     const steps = 60;
     const stepInterval = duration / steps;
@@ -55,7 +74,7 @@ export function AnimatedStat({
     }, stepInterval);
 
     return () => clearInterval(timer);
-  }, [isInView, value, duration]);
+  }, [isVisible, value, duration]);
 
   // Format the display value
   const formattedValue = value % 1 !== 0
@@ -67,8 +86,7 @@ export function AnimatedStat({
       ref={containerRef}
       className={className}
       initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
       transition={{ duration: 0.5 }}
     >
       <div className={`font-bold ${valueClassName}`}>

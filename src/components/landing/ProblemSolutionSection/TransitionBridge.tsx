@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+import { useInView } from "motion/react";
 import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 
 const words = [
@@ -9,9 +11,28 @@ const words = [
   { text: "alone.", className: "text-white" },
 ];
 
-export function TransitionBridge() {
+interface TransitionBridgeProps {
+  onComplete?: () => void;
+}
+
+export function TransitionBridge({ onComplete }: TransitionBridgeProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const hasTriggered = useRef(false);
+  const isInView = useInView(containerRef, { once: true, margin: "-40% 0px -40% 0px" });
+
+  useEffect(() => {
+    if (isInView && !hasTriggered.current) {
+      hasTriggered.current = true;
+      // Wait 2.0 seconds after the typewriter starts (17 chars × 0.1s + 0.3s duration)
+      const timer = setTimeout(() => {
+        onComplete?.();
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [isInView, onComplete]);
+
   return (
-    <div className="pb-20 lg:pb-24 bg-gray-900 relative flex items-center justify-center">
+    <div ref={containerRef} className="pb-20 lg:pb-24 bg-gray-900 relative flex items-center justify-center">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <TypewriterEffect
           words={words}
