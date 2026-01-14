@@ -48,7 +48,7 @@ const features = [
 
 export function SolutionFeatures() {
   return (
-    <div className="bg-gradient-to-b from-oasis-primary/30 via-oasis-primary/50 to-oasis-primary py-16 lg:py-24 relative overflow-hidden">
+    <div className="bg-gradient-to-b from-oasis-primary-dark to-oasis-primary pt-16 pb-16 lg:pt-20 lg:pb-24 relative overflow-hidden">
       {/* Decorative dot pattern */}
       <div className="absolute inset-0 opacity-5">
         <div
@@ -61,21 +61,7 @@ export function SolutionFeatures() {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <h3 className="text-sm font-medium tracking-wide uppercase mb-4" style={{ color: 'var(--oasis-primary-dark)' }}>
-            A Different Approach
-          </h3>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold" style={{ color: 'var(--background)' }}>
-            How Oasis Works
-          </h2>
-        </motion.div>
-
-        <div className="space-y-16 lg:space-y-24">
+        <div className="space-y-20 lg:space-y-32">
           {features.map((feature, index) => (
             <div
               key={index}
@@ -91,7 +77,7 @@ export function SolutionFeatures() {
                   x: feature.imagePosition === "right" ? 50 : -50,
                 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
+                viewport={{ once: true, margin: "-20%" }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
               >
                 <div className="absolute inset-0 bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20">
@@ -114,14 +100,14 @@ export function SolutionFeatures() {
                   x: feature.imagePosition === "right" ? -50 : 50,
                 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+                viewport={{ once: true, margin: "-20%" }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
               >
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
                     <feature.icon className="w-5 h-5 text-white" />
                   </div>
-                  <span className="text-sm font-medium" style={{ color: 'var(--oasis-primary-dark)' }}>
+                  <span className="text-sm font-medium" style={{ color: 'var(--background)' }}>
                     {feature.subtitle}
                   </span>
                 </div>
@@ -134,8 +120,8 @@ export function SolutionFeatures() {
                   {feature.description}
                 </p>
 
-                <p className="text-sm flex items-center gap-2" style={{ color: 'var(--oasis-primary-dark)' }}>
-                  <span className="w-1 h-1 rounded-full bg-oasis-primary-light/70" />
+                <p className="text-sm flex items-center gap-2" style={{ color: 'var(--background)' }}>
+                  <span className="w-1 h-1 rounded-full bg-white/70" />
                   {feature.detail}
                 </p>
               </motion.div>

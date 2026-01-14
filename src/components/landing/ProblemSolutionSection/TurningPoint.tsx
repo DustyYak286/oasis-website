@@ -10,9 +10,9 @@ const headlines = [
 
 export function TurningPoint() {
   return (
-    <div className="min-h-[80vh] relative overflow-hidden flex items-center justify-center">
+    <div className="min-h-[60vh] relative overflow-hidden flex items-center justify-center">
       {/* Gradient background - transition from dark to brand colors */}
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-700 via-gray-600/80 to-oasis-primary/30" />
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-900 to-oasis-primary-dark" />
 
       {/* Subtle animated orbs */}
       <motion.div
@@ -40,13 +40,20 @@ export function TurningPoint() {
         }}
       />
 
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* Single parent trigger - all children animate based on delays from this trigger */}
+      <motion.div
+        className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-30%" }}
+      >
         <motion.p
           className="text-oasis-primary-light text-lg sm:text-xl font-medium mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: { opacity: 1, y: 0 },
+          }}
+          transition={{ duration: 0.5, delay: 0 }}
         >
           But imagine if...
         </motion.p>
@@ -56,12 +63,13 @@ export function TurningPoint() {
             <motion.h2
               key={index}
               className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0 },
+              }}
               transition={{
                 duration: 0.6,
-                delay: 0.3 + index * 0.4,
+                delay: 0.5 + index * 0.4,
                 ease: "easeOut",
               }}
             >
@@ -71,24 +79,29 @@ export function TurningPoint() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 1.8 }}
+          variants={{
+            hidden: { opacity: 0, scale: 0.9 },
+            visible: { opacity: 1, scale: 1 },
+          }}
+          transition={{ duration: 0.8, delay: 1.9 }}
         >
-          <span className="inline-block text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold" style={{ color: 'var(--oasis-primary)' }}>
+          <span
+            className="inline-block text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white"
+            style={{ textShadow: '0 0 30px rgba(107, 163, 240, 0.6), 0 0 60px rgba(107, 163, 240, 0.3)' }}
+          >
             This is Oasis.
           </span>
           <motion.div
-            className="h-1 bg-oasis-primary mx-auto mt-4 rounded-full"
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 2.2 }}
+            className="h-1 bg-white mx-auto mt-4 rounded-full"
+            variants={{
+              hidden: { scaleX: 0 },
+              visible: { scaleX: 1 },
+            }}
+            transition={{ duration: 0.6, delay: 2.3 }}
             style={{ maxWidth: "200px" }}
           />
         </motion.div>
-      </div>
+      </motion.div>
     </div>
   );
 }

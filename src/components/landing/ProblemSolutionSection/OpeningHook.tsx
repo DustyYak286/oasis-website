@@ -27,7 +27,7 @@ export function OpeningHook() {
             className="lg:col-span-3 relative"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-30%" }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
@@ -49,7 +49,7 @@ export function OpeningHook() {
               className="text-oasis-primary-light text-xl font-medium tracking-wide uppercase mb-4 text-left"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-30%" }}
               transition={{ duration: 0.5 }}
             >
               Her name is Fatima.
@@ -59,7 +59,7 @@ export function OpeningHook() {
               className="space-y-4 text-lg leading-relaxed mb-6"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-30%" }}
               transition={{ duration: 0.5, delay: 0.1 }}
               style={{ color: 'var(--background)' }}
             >
@@ -77,7 +77,7 @@ export function OpeningHook() {
               className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-30%" }}
               transition={{ duration: 0.5, delay: 0.2 }}
               style={{ fontSize: '35px', marginRight: '15px' }}
             >

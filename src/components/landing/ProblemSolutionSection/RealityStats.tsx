@@ -59,9 +59,6 @@ export function RealityStats({ startAnimation }: RealityStatsProps) {
           ))}
         </div>
       </div>
-
-      {/* Bottom gradient to blend into TurningPoint */}
-      <div className="h-32 bg-gradient-to-b from-gray-900 to-gray-700" />
     </div>
   );
 }
