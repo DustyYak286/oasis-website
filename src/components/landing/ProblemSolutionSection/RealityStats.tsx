@@ -9,7 +9,6 @@ const stats = [
     label: "children lack internet access at home",
     context:
       "In an increasingly connected world, over a billion young learners are left behind.",
-    source: "UNICEF",
   },
   {
     value: 617,

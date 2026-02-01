@@ -48,7 +48,7 @@ export function TurningPoint() {
         viewport={{ once: true, margin: "-30%" }}
       >
         <motion.p
-          className="text-oasis-primary-light text-lg sm:text-xl font-medium mb-8"
+          className="text-white text-lg sm:text-xl font-medium mb-8"
           variants={{
             hidden: { opacity: 0, y: 20 },
             visible: { opacity: 1, y: 0 },
