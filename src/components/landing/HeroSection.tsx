@@ -15,7 +15,7 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative">
+    <section className="relative overflow-hidden">
       <WavyBackground
         colors={["#3F84E5", "#6BA3F0", "#468657", "#2A5BA8"]}
         backgroundFill="white"
