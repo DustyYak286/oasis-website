@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { motion } from "motion/react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
+import { trackContactFormSubmit } from "@/lib/analytics";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -25,51 +26,157 @@ const formSchema = z.object({
   organization: z.string().optional(),
   interest: z.string().min(1, "Please select an interest"),
   message: z.string().optional(),
+  website: z.string().optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
+type FormFieldName = "name" | "email" | "organization" | "interest" | "message";
+type FormspreeError = { field?: string; message?: string };
 
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID"; // Replace with actual form ID
+const FALLBACK_SUBMIT_ERROR_MESSAGE =
+  "Try again or email contact@oasis-edu.org.";
+const FORMSPREE_ENDPOINT = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT;
+
+const isFormFieldName = (field: string): field is FormFieldName =>
+  field === "name" ||
+  field === "email" ||
+  field === "organization" ||
+  field === "interest" ||
+  field === "message";
+
+const isValidFormspreeEndpoint = (endpoint?: string): boolean => {
+  if (!endpoint) {
+    return false;
+  }
+
+  try {
+    const parsed = new URL(endpoint);
+    return (
+      parsed.protocol === "https:" &&
+      parsed.hostname === "formspree.io" &&
+      parsed.pathname.startsWith("/f/")
+    );
+  } catch {
+    return false;
+  }
+};
 
 export function CTASection() {
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle");
+  const [submitErrorMessage, setSubmitErrorMessage] = useState<string>("");
 
   const {
+    control,
     register,
     handleSubmit,
-    setValue,
+    setError,
+    clearErrors,
     reset,
     formState: { errors, touchedFields, submitCount },
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      organization: "",
+      interest: "",
+      message: "",
+      website: "",
+    },
   });
+
+  const hasValidEndpoint = useMemo(
+    () => isValidFormspreeEndpoint(FORMSPREE_ENDPOINT),
+    []
+  );
 
   const showNameError = (touchedFields.name || submitCount > 0) && errors.name;
   const showEmailError =
     (touchedFields.email || submitCount > 0) && errors.email;
+  const showOrganizationError =
+    (touchedFields.organization || submitCount > 0) && errors.organization;
   const showInterestError =
     (touchedFields.interest || submitCount > 0) && errors.interest;
+  const showMessageError =
+    (touchedFields.message || submitCount > 0) && errors.message;
 
   const onSubmit = async (data: FormData) => {
+    if (!hasValidEndpoint) {
+      setSubmitStatus("error");
+      setSubmitErrorMessage(
+        "Form is not configured correctly. Please set NEXT_PUBLIC_FORMSPREE_ENDPOINT."
+      );
+      return;
+    }
+
+    if (data.website?.trim()) {
+      setSubmitErrorMessage("");
+      clearErrors();
+      setSubmitStatus("success");
+      reset();
+      return;
+    }
+
+    clearErrors();
+    setSubmitErrorMessage("");
     setSubmitStatus("loading");
+
     try {
       const response = await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Accept: "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          organization: data.organization,
+          interest: data.interest,
+          message: data.message,
+          website: data.website,
+        }),
       });
 
       if (response.ok) {
         setSubmitStatus("success");
         reset();
+        void trackContactFormSubmit({
+          interest: data.interest,
+          organizationProvided: Boolean(data.organization?.trim()),
+          messageProvided: Boolean(data.message?.trim()),
+        });
       } else {
+        const payload = (await response.json().catch(() => null)) as
+          | { errors?: FormspreeError[]; error?: string }
+          | null;
+        const responseErrors = payload?.errors ?? [];
+        let hasFieldError = false;
+
+        for (const formError of responseErrors) {
+          if (!formError.field || !isFormFieldName(formError.field)) {
+            continue;
+          }
+
+          hasFieldError = true;
+          setError(formError.field, {
+            type: "server",
+            message: formError.message ?? "Invalid value.",
+          });
+        }
+
+        if (!hasFieldError) {
+          setSubmitErrorMessage(
+            payload?.error?.trim() || FALLBACK_SUBMIT_ERROR_MESSAGE
+          );
+        }
+
         setSubmitStatus("error");
       }
     } catch {
+      setSubmitErrorMessage(FALLBACK_SUBMIT_ERROR_MESSAGE);
       setSubmitStatus("error");
     }
   };
@@ -140,18 +247,41 @@ export function CTASection() {
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">
                     Thank You!
                   </h3>
-                  <p className="text-gray-600 mb-6">
+                  <p className="text-gray-600 mb-6" aria-live="polite">
                     We&apos;ve received your message and will get back to you soon.
                   </p>
                   <Button
                     onClick={() => setSubmitStatus("idle")}
                     variant="outline"
+                    className="hover:bg-oasis-accent-red hover:text-white hover:border-oasis-accent-red"
                   >
                     Send Another Message
                   </Button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-5">
+                  {!hasValidEndpoint && (
+                    <div
+                      className="rounded-md border border-oasis-accent-red/40 bg-oasis-accent-red/10 p-3 text-sm text-oasis-accent-red"
+                      role="alert"
+                      aria-live="polite"
+                    >
+                      Form config missing: set{" "}
+                      <code>NEXT_PUBLIC_FORMSPREE_ENDPOINT</code> to a valid
+                      Formspree endpoint (example:{" "}
+                      <code>https://formspree.io/f/your_form_id</code>).
+                    </div>
+                  )}
+
+                  <input
+                    {...register("website")}
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    className="sr-only"
+                    aria-hidden="true"
+                  />
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div className="space-y-2">
                       <Label htmlFor="name">
@@ -195,8 +325,17 @@ export function CTASection() {
                       id="organization"
                       placeholder="Your school or organization"
                       {...register("organization")}
-                      className="min-h-10"
+                      className={
+                        showOrganizationError
+                          ? "border-oasis-accent-red min-h-10"
+                          : "min-h-10"
+                      }
                     />
+                    {showOrganizationError && (
+                      <p className="text-xs text-oasis-accent-red">
+                        {showOrganizationError.message}
+                      </p>
+                    )}
                   </div>
 
                   <div className="space-y-2">
@@ -204,27 +343,34 @@ export function CTASection() {
                       I&apos;m interested in{" "}
                       <span className="text-oasis-accent-red">*</span>
                     </Label>
-                    <Select
-                      onValueChange={(value) =>
-                        setValue("interest", value, {
-                          shouldValidate: true,
-                          shouldTouch: true,
-                        })
-                      }
-                    >
-                      <SelectTrigger
-                        className={showInterestError ? "border-oasis-accent-red w-full min-h-10" : "w-full min-h-10"}
-                      >
-                        <SelectValue placeholder="Select your interest" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="pilot">Pilot Program</SelectItem>
-                        <SelectItem value="partnership">Partnership</SelectItem>
-                        <SelectItem value="donation">Donation</SelectItem>
-                        <SelectItem value="newsletter">Newsletter</SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <Controller
+                      name="interest"
+                      control={control}
+                      defaultValue=""
+                      render={({ field }) => (
+                        <Select
+                          value={field.value}
+                          onValueChange={field.onChange}
+                        >
+                          <SelectTrigger
+                            className={
+                              showInterestError
+                                ? "border-oasis-accent-red w-full min-h-10"
+                                : "w-full min-h-10"
+                            }
+                          >
+                            <SelectValue placeholder="Select your interest" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="pilot">Pilot Program</SelectItem>
+                            <SelectItem value="partnership">Partnership</SelectItem>
+                            <SelectItem value="donation">Donation</SelectItem>
+                            <SelectItem value="newsletter">Newsletter</SelectItem>
+                            <SelectItem value="other">Other</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      )}
+                    />
                     {showInterestError && (
                       <p className="text-xs text-oasis-accent-red">
                         {showInterestError.message}
@@ -238,20 +384,35 @@ export function CTASection() {
                       id="message"
                       placeholder="Tell us more about how you'd like to get involved..."
                       {...register("message")}
-                      className="flex min-h-[100px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      className={
+                        showMessageError
+                          ? "flex min-h-[100px] w-full rounded-md border border-oasis-accent-red bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                          : "flex min-h-[100px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      }
                     />
+                    {showMessageError && (
+                      <p className="text-xs text-oasis-accent-red">
+                        {showMessageError.message}
+                      </p>
+                    )}
                   </div>
 
                   {submitStatus === "error" && (
-                    <div className="flex items-center gap-2 text-oasis-accent-red text-sm">
+                    <div
+                      className="flex items-center gap-2 text-oasis-accent-red text-sm"
+                      role="alert"
+                      aria-live="polite"
+                    >
                       <AlertCircle className="h-4 w-4" />
-                      <span>Something went wrong. Please try again.</span>
+                      <span>
+                        {submitErrorMessage || FALLBACK_SUBMIT_ERROR_MESSAGE}
+                      </span>
                     </div>
                   )}
 
                   <Button
                     type="submit"
-                    disabled={submitStatus === "loading"}
+                    disabled={submitStatus === "loading" || !hasValidEndpoint}
                     className="w-full bg-oasis-primary hover:bg-oasis-primary-dark text-white py-6 text-lg min-h-12"
                   >
                     {submitStatus === "loading" ? (
