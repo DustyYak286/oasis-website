@@ -32,11 +32,14 @@ export function TransitionBridge({ onComplete }: TransitionBridgeProps) {
   }, [isInView, onComplete]);
 
   return (
-    <div ref={containerRef} className="pb-20 lg:pb-24 bg-gray-900 relative flex items-center justify-center">
+    <div
+      ref={containerRef}
+      className="pb-16 sm:pb-20 lg:pb-24 bg-gray-900 relative flex items-center justify-center"
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <TypewriterEffect
           words={words}
-          className="text-2xl sm:text-3xl lg:text-4xl"
+          className="text-2xl [@media(min-width:360px)]:text-3xl sm:text-4xl lg:text-5xl"
           cursorClassName="bg-oasis-primary"
         />
       </div>

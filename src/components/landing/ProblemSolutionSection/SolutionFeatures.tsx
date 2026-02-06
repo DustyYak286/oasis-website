@@ -56,7 +56,7 @@ const features = [
 
 export function SolutionFeatures() {
   return (
-    <div className="bg-gradient-to-b from-oasis-primary-dark to-oasis-primary pt-16 pb-16 lg:pt-20 lg:pb-24 relative overflow-hidden">
+    <div className="bg-gradient-to-b from-oasis-primary-dark to-oasis-primary pt-14 sm:pt-16 pb-14 sm:pb-16 lg:pt-20 lg:pb-24 relative overflow-hidden">
       {/* Decorative dot pattern */}
       <div className="absolute inset-0 opacity-5">
         <div
@@ -69,15 +69,15 @@ export function SolutionFeatures() {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="space-y-20 lg:space-y-32">
+        <div className="space-y-14 sm:space-y-20 lg:space-y-32">
           {features.map((feature, index) => (
             <div
               key={index}
-              className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center"
+              className="grid grid-cols-1 lg:grid-cols-2 gap-7 sm:gap-8 lg:gap-16 items-center"
             >
               {/* Image/Render placeholder */}
               <motion.div
-                className={`relative aspect-[4/3] rounded-2xl overflow-hidden ${
+                className={`relative aspect-[16/11] sm:aspect-[4/3] rounded-2xl overflow-hidden ${
                   feature.imagePosition === "right" ? "lg:order-2" : "lg:order-1"
                 }`}
                 initial={{
@@ -101,7 +101,7 @@ export function SolutionFeatures() {
                       <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-white/10 flex items-center justify-center">
                         <feature.icon className="w-8 h-8" />
                       </div>
-                      <span className="text-sm">{feature.imagePlaceholder}</span>
+                      <span className="text-xs sm:text-sm">{feature.imagePlaceholder}</span>
                     </div>
                   </div>
                 )}
@@ -121,19 +121,19 @@ export function SolutionFeatures() {
                 transition={{ duration: 0.6, ease: "easeOut" }}
               >
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white/10 flex items-center justify-center">
                     <feature.icon className="w-5 h-5 text-white" />
                   </div>
-                  <span className="text-sm font-medium" style={{ color: 'var(--background)' }}>
+                  <span className="text-xs sm:text-sm font-medium" style={{ color: 'var(--background)' }}>
                     {feature.subtitle}
                   </span>
                 </div>
 
-                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4" style={{ color: 'var(--background)' }}>
+                <h3 className="text-xl [@media(min-width:360px)]:text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4" style={{ color: 'var(--background)' }}>
                   {feature.title}
                 </h3>
 
-                <p className="text-lg leading-relaxed" style={{ color: 'var(--background)' }}>
+                <p className="text-base [@media(min-width:360px)]:text-lg leading-relaxed" style={{ color: 'var(--background)' }}>
                   {feature.description}
                 </p>
               </motion.div>

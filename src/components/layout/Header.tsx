@@ -48,13 +48,13 @@ export function Header() {
       <Container>
         <nav className="flex items-center justify-between h-14 md:h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
+          <Link href="/" className="flex items-center py-1">
             <Image
               src="/images/oasis-logo.png"
               alt="Oasis"
               width={120}
               height={48}
-              className="h-8 md:h-10 w-auto"
+              className="h-7 sm:h-8 md:h-10 w-auto"
               priority
             />
           </Link>
@@ -95,7 +95,7 @@ export function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2"
+            className="md:hidden p-2.5 -mr-1"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -111,10 +111,10 @@ export function Header() {
         <div
           className={cn(
             "md:hidden overflow-hidden transition-all duration-300",
-            isMenuOpen ? "max-h-64 pb-4" : "max-h-0"
+            isMenuOpen ? "max-h-[calc(100svh-3.5rem)] pb-4" : "max-h-0"
           )}
         >
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col items-center gap-4 overflow-y-auto overscroll-contain max-h-[calc(100svh-3.5rem)]">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -123,7 +123,7 @@ export function Header() {
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link)}
                   className={cn(
-                    "text-left text-sm font-medium text-gray-600 hover:text-oasis-primary transition-colors",
+                    "w-full text-center text-sm font-medium text-gray-600 hover:text-oasis-primary transition-colors py-1",
                     isActive && "underline decoration-2 underline-offset-4 decoration-oasis-primary"
                   )}
                 >
@@ -133,7 +133,7 @@ export function Header() {
             })}
             <Button
               onClick={() => scrollToSection("#contact")}
-              className="bg-oasis-primary hover:bg-oasis-primary-dark w-full"
+              className="bg-oasis-primary hover:bg-oasis-primary-dark w-full min-h-10"
             >
               Get Involved
             </Button>

@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export function OpeningHook() {
   return (
-    <div className="min-h-screen bg-gray-900 relative overflow-hidden">
+    <div className="min-h-[100svh] md:min-h-screen bg-gray-900 relative overflow-hidden">
       {/* Cloud transition from white Hero */}
       <div className="absolute top-0 left-0 right-0 h-16 z-20 pointer-events-none">
         {/* Main gradient fade */}
@@ -20,8 +20,8 @@ export function OpeningHook() {
       {/* Background - solid to match RealityStats */}
       <div className="absolute inset-0 bg-gray-900" />
 
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 min-h-screen flex items-center">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-4 items-center w-full py-16 lg:py-0">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 min-h-[100svh] md:min-h-screen flex items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-7 sm:gap-8 lg:gap-4 items-center w-full py-20 sm:py-24 lg:py-0">
           {/* Image Section - 60% on desktop */}
           <motion.div
             className="lg:col-span-3 relative"
@@ -30,7 +30,7 @@ export function OpeningHook() {
             viewport={{ once: true, margin: "-30%" }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+            <div className="relative aspect-[16/11] sm:aspect-[4/3] rounded-2xl overflow-hidden">
               <Image
                 src="/images/story.png"
                 alt="Child in classroom"
@@ -39,14 +39,14 @@ export function OpeningHook() {
                 priority
               />
               {/* Gradient overlay on image - fades right side */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gray-900/30 to-gray-900" />
+              <div className="absolute inset-0 hidden lg:block bg-gradient-to-r from-transparent via-gray-900/30 to-gray-900" />
             </div>
           </motion.div>
 
           {/* Text Section - 40% on desktop, pulled left to overlap faded image */}
-          <div className="lg:col-span-2 text-white lg:-ml-24 relative z-10">
+          <div className="lg:col-span-2 text-white text-center lg:text-left max-w-3xl mx-auto lg:mx-0 lg:-ml-24 relative z-10">
             <motion.p
-              className="text-oasis-primary-light text-xl font-medium tracking-wide uppercase mb-4 text-left"
+              className="text-oasis-primary-light text-lg sm:text-xl font-medium tracking-wide uppercase mb-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-30%" }}
@@ -56,7 +56,7 @@ export function OpeningHook() {
             </motion.p>
 
             <motion.div
-              className="space-y-4 text-lg leading-relaxed mb-6"
+              className="space-y-3 sm:space-y-4 text-base sm:text-lg leading-relaxed mb-6"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-30%" }}
@@ -74,12 +74,11 @@ export function OpeningHook() {
             </motion.div>
 
             <motion.h2
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight"
+              className="text-[2rem] [@media(min-width:360px)]:text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight lg:pr-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-30%" }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              style={{ fontSize: '35px', marginRight: '15px' }}
             >
               Every child deserves a chance to learn.
             </motion.h2>

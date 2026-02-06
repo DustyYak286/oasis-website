@@ -41,10 +41,16 @@ export function CTASection() {
     handleSubmit,
     setValue,
     reset,
-    formState: { errors },
+    formState: { errors, touchedFields, submitCount },
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
   });
+
+  const showNameError = (touchedFields.name || submitCount > 0) && errors.name;
+  const showEmailError =
+    (touchedFields.email || submitCount > 0) && errors.email;
+  const showInterestError =
+    (touchedFields.interest || submitCount > 0) && errors.interest;
 
   const onSubmit = async (data: FormData) => {
     setSubmitStatus("loading");
@@ -81,17 +87,17 @@ export function CTASection() {
         />
       </div>
 
-      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
         {/* Left: Text Content */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-5 sm:mb-6">
             Join the Movement
           </h2>
-          <p className="text-xl text-white/90 mb-8 leading-relaxed">
+          <p className="text-lg [@media(min-width:360px)]:text-xl text-white/90 mb-7 sm:mb-8 leading-relaxed">
             Help us bridge the education gap worldwide. Whether you&apos;re a school,
             organization, donor, or simply passionate about education—there&apos;s a
             place for you in the Oasis community.
@@ -127,7 +133,7 @@ export function CTASection() {
           transition={{ delay: 0.2 }}
         >
           <Card className="bg-white shadow-2xl">
-            <CardContent className="p-6 md:p-8">
+            <CardContent className="p-5 sm:p-6 md:p-8">
               {submitStatus === "success" ? (
                 <div className="text-center py-8">
                   <CheckCircle className="h-16 w-16 text-oasis-accent-red mx-auto mb-4" />
@@ -145,7 +151,7 @@ export function CTASection() {
                   </Button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-5">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div className="space-y-2">
                       <Label htmlFor="name">
@@ -155,11 +161,11 @@ export function CTASection() {
                         id="name"
                         placeholder="Your name"
                         {...register("name")}
-                        className={errors.name ? "border-oasis-accent-red" : ""}
+                        className={showNameError ? "border-oasis-accent-red min-h-10" : "min-h-10"}
                       />
-                      {errors.name && (
+                      {showNameError && (
                         <p className="text-xs text-oasis-accent-red">
-                          {errors.name.message}
+                          {showNameError.message}
                         </p>
                       )}
                     </div>
@@ -173,11 +179,11 @@ export function CTASection() {
                         type="email"
                         placeholder="your@email.com"
                         {...register("email")}
-                        className={errors.email ? "border-oasis-accent-red" : ""}
+                        className={showEmailError ? "border-oasis-accent-red min-h-10" : "min-h-10"}
                       />
-                      {errors.email && (
+                      {showEmailError && (
                         <p className="text-xs text-oasis-accent-red">
-                          {errors.email.message}
+                          {showEmailError.message}
                         </p>
                       )}
                     </div>
@@ -189,6 +195,7 @@ export function CTASection() {
                       id="organization"
                       placeholder="Your school or organization"
                       {...register("organization")}
+                      className="min-h-10"
                     />
                   </div>
 
@@ -198,10 +205,15 @@ export function CTASection() {
                       <span className="text-oasis-accent-red">*</span>
                     </Label>
                     <Select
-                      onValueChange={(value) => setValue("interest", value)}
+                      onValueChange={(value) =>
+                        setValue("interest", value, {
+                          shouldValidate: true,
+                          shouldTouch: true,
+                        })
+                      }
                     >
                       <SelectTrigger
-                        className={errors.interest ? "border-oasis-accent-red" : ""}
+                        className={showInterestError ? "border-oasis-accent-red w-full min-h-10" : "w-full min-h-10"}
                       >
                         <SelectValue placeholder="Select your interest" />
                       </SelectTrigger>
@@ -213,9 +225,9 @@ export function CTASection() {
                         <SelectItem value="other">Other</SelectItem>
                       </SelectContent>
                     </Select>
-                    {errors.interest && (
+                    {showInterestError && (
                       <p className="text-xs text-oasis-accent-red">
-                        {errors.interest.message}
+                        {showInterestError.message}
                       </p>
                     )}
                   </div>
@@ -240,7 +252,7 @@ export function CTASection() {
                   <Button
                     type="submit"
                     disabled={submitStatus === "loading"}
-                    className="w-full bg-oasis-primary hover:bg-oasis-primary-dark text-white py-6 text-lg"
+                    className="w-full bg-oasis-primary hover:bg-oasis-primary-dark text-white py-6 text-lg min-h-12"
                   >
                     {submitStatus === "loading" ? (
                       <>

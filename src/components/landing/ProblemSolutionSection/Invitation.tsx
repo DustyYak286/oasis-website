@@ -13,10 +13,10 @@ export function Invitation() {
   };
 
   return (
-    <div className="min-h-[60vh] bg-gradient-to-b from-oasis-primary to-oasis-primary-light relative overflow-hidden flex items-center py-16">
+    <div className="min-h-[55svh] sm:min-h-[60vh] bg-gradient-to-b from-oasis-primary to-oasis-primary-light relative overflow-hidden flex items-center py-14 sm:py-16">
       {/* Decorative elements */}
       <motion.div
-        className="absolute top-1/3 right-0 w-96 h-96 bg-oasis-accent-green/10 rounded-full blur-3xl"
+        className="absolute top-1/3 right-0 w-56 h-56 sm:w-72 sm:h-72 lg:w-96 lg:h-96 bg-oasis-accent-green/10 rounded-full blur-3xl"
         animate={{
           scale: [1, 1.1, 1],
           opacity: [0.1, 0.2, 0.1],
@@ -28,7 +28,7 @@ export function Invitation() {
         }}
       />
       <motion.div
-        className="absolute bottom-1/4 left-0 w-72 h-72 bg-white/5 rounded-full blur-3xl"
+        className="absolute bottom-1/4 left-0 w-44 h-44 sm:w-56 sm:h-56 lg:w-72 lg:h-72 bg-white/5 rounded-full blur-3xl"
         animate={{
           scale: [1.1, 1, 1.1],
           opacity: [0.1, 0.15, 0.1],
@@ -54,7 +54,7 @@ export function Invitation() {
           </h2>
 
           <p
-            className="text-lg leading-relaxed mb-6"
+            className="text-base [@media(min-width:360px)]:text-lg leading-relaxed mb-6"
             style={{ color: 'var(--background)' }}
           >
             With Oasis, she explores the mathematics she loves. She learns at
@@ -63,7 +63,7 @@ export function Invitation() {
           </p>
 
           <p
-            className="text-xl font-medium mb-10"
+            className="text-lg [@media(min-width:360px)]:text-xl font-medium mb-9 sm:mb-10"
             style={{ color: 'var(--background)' }}
           >
             But Oasis only exists when people like you believe it should.
@@ -79,17 +79,13 @@ export function Invitation() {
             </Button>
           </div>
 
-          {/* Social Proof - animates separately on further scroll */}
-          <motion.div
-            className="mt-12 pt-8 border-t border-white/20 inline-flex items-center gap-3 text-white/70 text-sm"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "0px 0px -20% 0px" }}
-            transition={{ duration: 0.5 }}
+          {/* Social Proof - enters with the rest of the section */}
+          <div
+            className="mt-10 sm:mt-12 pt-7 sm:pt-8 border-t border-white/20 inline-flex flex-wrap justify-center items-center gap-3 text-white/70 text-xs [@media(min-width:360px)]:text-sm"
           >
             <Award className="w-5 h-5 text-white/80" />
             <span>UNESCO x Nestle Global Youth Grant Scheme Recipient</span>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </div>

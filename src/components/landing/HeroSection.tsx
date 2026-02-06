@@ -22,13 +22,13 @@ export function HeroSection() {
         waveOpacity={0.3}
         blur={15}
         speed="slow"
-        containerClassName="min-h-screen"
+        containerClassName="min-h-[100svh] md:min-h-screen"
       >
-        <Container className="relative z-10">
+        <Container className="relative z-10 pt-20 pb-14 sm:pt-24 sm:pb-16 md:py-0">
           <div className="text-center max-w-4xl mx-auto">
           {/* Headline */}
           <motion.h1
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-gray-900 mb-6"
+            className="text-[2rem] [@media(min-width:360px)]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-gray-900 mb-5 sm:mb-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
@@ -55,7 +55,7 @@ export function HeroSection() {
 
           {/* Subheadline */}
           <motion.p
-            className="text-lg sm:text-xl text-black mb-8 max-w-2xl mx-auto leading-relaxed"
+            className="text-base [@media(min-width:360px)]:text-lg sm:text-xl text-black mb-7 sm:mb-8 max-w-2xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -67,7 +67,7 @@ export function HeroSection() {
 
           {/* CTAs */}
           <motion.div
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
@@ -75,7 +75,7 @@ export function HeroSection() {
             <Button
               size="lg"
               onClick={() => scrollToSection("#story")}
-              className="bg-oasis-primary hover:bg-oasis-primary-dark text-white px-8 py-6 text-lg"
+              className="bg-oasis-primary hover:bg-oasis-primary-dark text-white px-8 py-6 text-lg w-full sm:w-auto"
             >
               Learn More
               <ArrowDown className="ml-2 h-5 w-5" />
@@ -84,7 +84,7 @@ export function HeroSection() {
               size="lg"
               variant="outline"
               onClick={() => scrollToSection("#contact")}
-              className="border-oasis-primary text-oasis-primary hover:bg-oasis-primary hover:text-white px-8 py-6 text-lg"
+              className="border-oasis-primary text-oasis-primary hover:bg-oasis-primary hover:text-white px-8 py-6 text-lg w-full sm:w-auto"
             >
               Get Involved
             </Button>
@@ -96,7 +96,7 @@ export function HeroSection() {
 
       {/* Scroll Indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+        className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-20"
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
       >

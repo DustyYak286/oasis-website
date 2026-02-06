@@ -39,9 +39,9 @@ const testimonials = [
 ];
 
 function getQuoteSizeClass(quoteLength: number): string {
-  if (quoteLength > 160) return "text-lg md:text-xl";
-  if (quoteLength > 130) return "text-xl md:text-2xl";
-  return "text-2xl md:text-3xl";
+  if (quoteLength > 160) return "text-base [@media(min-width:360px)]:text-lg md:text-xl";
+  if (quoteLength > 130) return "text-lg [@media(min-width:360px)]:text-xl md:text-2xl";
+  return "text-xl [@media(min-width:360px)]:text-2xl md:text-3xl";
 }
 
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
@@ -120,7 +120,7 @@ export function ImpactSection() {
 
       {/* Metrics */}
       <motion.div
-        className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16"
+        className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-14 sm:mb-16"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -131,11 +131,11 @@ export function ImpactSection() {
             key={index}
             className="bg-gradient-to-br from-white to-gray-50 border-none shadow-lg"
           >
-            <CardContent className="p-6 text-center">
-              <div className={`text-4xl md:text-5xl font-bold ${metric.color} mb-2`}>
+            <CardContent className="p-4 sm:p-6 text-center">
+              <div className={`text-3xl [@media(min-width:360px)]:text-4xl md:text-5xl font-bold ${metric.color} mb-2`}>
                 <AnimatedCounter value={metric.value} suffix={metric.suffix} />
               </div>
-              <div className="text-gray-600 font-medium">{metric.label}</div>
+              <div className="text-gray-600 font-medium text-sm sm:text-base">{metric.label}</div>
             </CardContent>
           </Card>
         ))}
@@ -153,7 +153,7 @@ export function ImpactSection() {
           <CardContent className="p-8 md:p-12">
             <Quote className="h-12 w-12 text-oasis-primary/20 mb-6" />
 
-            <div className="h-[200px] md:h-[180px]">
+            <div className="min-h-[250px] [@media(min-width:360px)]:min-h-[230px] sm:min-h-[210px] md:min-h-[180px]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentTestimonial}
@@ -184,7 +184,7 @@ export function ImpactSection() {
             </div>
 
             {/* Navigation */}
-            <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
+            <div className="flex flex-wrap items-center justify-between gap-4 mt-8 pt-6 border-t border-gray-200">
               <div className="flex gap-2">
                 {testimonials.map((_, index) => (
                   <button

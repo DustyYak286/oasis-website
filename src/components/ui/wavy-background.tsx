@@ -34,6 +34,7 @@ export const WavyBackground = ({
     x: number,
     ctx: any,
     canvas: any;
+  let resizeHandler: (() => void) | null = null;
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const getSpeed = () => {
     switch (speed) {
@@ -48,16 +49,24 @@ export const WavyBackground = ({
 
   const init = () => {
     canvas = canvasRef.current;
+    if (!canvas) return;
     ctx = canvas.getContext("2d");
-    w = ctx.canvas.width = window.innerWidth;
-    h = ctx.canvas.height = window.innerHeight;
+    if (!ctx) return;
+
+    const parent = canvas.parentElement;
+    w = ctx.canvas.width = parent?.clientWidth ?? window.innerWidth;
+    h = ctx.canvas.height = parent?.clientHeight ?? window.innerHeight;
     ctx.filter = `blur(${blur}px)`;
     nt = 0;
-    window.onresize = function () {
-      w = ctx.canvas.width = window.innerWidth;
-      h = ctx.canvas.height = window.innerHeight;
+
+    resizeHandler = () => {
+      const container = canvas.parentElement;
+      w = ctx.canvas.width = container?.clientWidth ?? window.innerWidth;
+      h = ctx.canvas.height = container?.clientHeight ?? window.innerHeight;
       ctx.filter = `blur(${blur}px)`;
     };
+    window.addEventListener("resize", resizeHandler);
+
     render();
   };
 
@@ -95,6 +104,9 @@ export const WavyBackground = ({
   useEffect(() => {
     init();
     return () => {
+      if (resizeHandler) {
+        window.removeEventListener("resize", resizeHandler);
+      }
       cancelAnimationFrame(animationId);
     };
   }, []);
@@ -112,7 +124,7 @@ export const WavyBackground = ({
   return (
     <div
       className={cn(
-        "relative overflow-hidden h-screen flex flex-col items-center justify-center",
+        "relative overflow-hidden h-[100svh] min-h-[100svh] md:h-screen md:min-h-screen flex flex-col items-center justify-center",
         containerClassName
       )}
     >
