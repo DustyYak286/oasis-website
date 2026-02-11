@@ -39,9 +39,9 @@ const testimonials = [
 ];
 
 function getQuoteSizeClass(quoteLength: number): string {
-  if (quoteLength > 160) return "text-base [@media(min-width:360px)]:text-lg md:text-xl";
-  if (quoteLength > 130) return "text-lg [@media(min-width:360px)]:text-xl md:text-2xl";
-  return "text-xl [@media(min-width:360px)]:text-2xl md:text-3xl";
+  if (quoteLength > 170) return "text-sm sm:text-base md:text-lg";
+  if (quoteLength > 140) return "text-base sm:text-lg md:text-xl";
+  return "text-lg sm:text-xl md:text-2xl";
 }
 
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
@@ -91,11 +91,6 @@ export function ImpactSection() {
     );
   };
 
-  useEffect(() => {
-    const timer = setInterval(nextTestimonial, 6000);
-    return () => clearInterval(timer);
-  }, []);
-
   return (
     <Section id="impact" background="white">
       <div className="text-center mb-12">
@@ -132,7 +127,7 @@ export function ImpactSection() {
             className="bg-gradient-to-br from-white to-gray-50 border-none shadow-lg"
           >
             <CardContent className="p-4 sm:p-6 text-center">
-              <div className={`text-3xl [@media(min-width:360px)]:text-4xl md:text-5xl font-bold ${metric.color} mb-2`}>
+              <div className={`text-3xl sm:text-4xl md:text-5xl font-bold ${metric.color} mb-2`}>
                 <AnimatedCounter value={metric.value} suffix={metric.suffix} />
               </div>
               <div className="text-gray-600 font-medium text-sm sm:text-base">{metric.label}</div>
@@ -153,16 +148,17 @@ export function ImpactSection() {
           <CardContent className="p-8 md:p-12">
             <Quote className="h-12 w-12 text-oasis-primary/20 mb-6" />
 
-            <div className="min-h-[250px] [@media(min-width:360px)]:min-h-[230px] sm:min-h-[210px] md:min-h-[180px]">
+            <div className="h-[340px] sm:h-[300px] md:h-[250px] overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentTestimonial}
+                  className="h-full flex flex-col justify-between gap-6"
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <blockquote className={`${getQuoteSizeClass(testimonials[currentTestimonial].quote.length)} text-gray-700 mb-8 leading-relaxed`}>
+                  <blockquote className={`${getQuoteSizeClass(testimonials[currentTestimonial].quote.length)} text-gray-700 leading-relaxed`}>
                     &quot;{testimonials[currentTestimonial].quote}&quot;
                   </blockquote>
 

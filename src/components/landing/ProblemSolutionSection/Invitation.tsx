@@ -54,7 +54,7 @@ export function Invitation() {
           </h2>
 
           <p
-            className="text-base [@media(min-width:360px)]:text-lg leading-relaxed mb-6"
+            className="text-base sm:text-lg leading-relaxed mb-6"
             style={{ color: 'var(--background)' }}
           >
             With Oasis, she explores the mathematics she loves. She learns at
@@ -63,7 +63,7 @@ export function Invitation() {
           </p>
 
           <p
-            className="text-lg [@media(min-width:360px)]:text-xl font-medium mb-9 sm:mb-10"
+            className="text-lg sm:text-xl font-medium mb-9 sm:mb-10"
             style={{ color: 'var(--background)' }}
           >
             But Oasis only exists when people like you believe it should.
@@ -80,9 +80,7 @@ export function Invitation() {
           </div>
 
           {/* Social Proof - enters with the rest of the section */}
-          <div
-            className="mt-10 sm:mt-12 pt-7 sm:pt-8 border-t border-white/20 inline-flex flex-wrap justify-center items-center gap-3 text-white/70 text-xs [@media(min-width:360px)]:text-sm"
-          >
+          <div className="mt-10 sm:mt-12 pt-7 sm:pt-8 border-t border-white/20 inline-flex flex-wrap justify-center items-center gap-3 text-white/70 text-xs sm:text-sm">
             <Award className="w-5 h-5 text-white/80" />
             <span>UNESCO x Nestle Global Youth Grant Scheme Recipient</span>
           </div>

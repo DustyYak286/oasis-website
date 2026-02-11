@@ -74,10 +74,10 @@ export function OpeningHook() {
             </motion.div>
 
             <motion.h2
-              className="text-[2rem] [@media(min-width:360px)]:text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight lg:pr-4"
+              className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight lg:pr-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-30%" }}
+              viewport={{ once: true, margin: "0px 0px -10% 0px" }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               Every child deserves a chance to learn.

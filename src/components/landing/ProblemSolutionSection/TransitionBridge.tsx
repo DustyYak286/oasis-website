@@ -39,7 +39,7 @@ export function TransitionBridge({ onComplete }: TransitionBridgeProps) {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <TypewriterEffect
           words={words}
-          className="text-2xl [@media(min-width:360px)]:text-3xl sm:text-4xl lg:text-5xl"
+          className="text-2xl sm:text-4xl lg:text-5xl"
           cursorClassName="bg-oasis-primary"
         />
       </div>

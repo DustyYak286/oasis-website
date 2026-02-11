@@ -124,7 +124,7 @@ export function CTASection() {
     setSubmitStatus("loading");
 
     try {
-      const response = await fetch(FORMSPREE_ENDPOINT, {
+      const response = await fetch(FORMSPREE_ENDPOINT!, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -204,7 +204,7 @@ export function CTASection() {
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-5 sm:mb-6">
             Join the Movement
           </h2>
-          <p className="text-lg [@media(min-width:360px)]:text-xl text-white/90 mb-7 sm:mb-8 leading-relaxed">
+          <p className="text-lg md:text-xl text-white/90 mb-7 sm:mb-8 leading-relaxed">
             Help us bridge the education gap worldwide. Whether you&apos;re a school,
             organization, donor, or simply passionate about education—there&apos;s a
             place for you in the Oasis community.
@@ -230,6 +230,11 @@ export function CTASection() {
               </motion.div>
             ))}
           </div>
+
+          <p className="text-white italic max-w-xl mt-8 text-sm sm:text-base">
+            &quot;Education is the most powerful weapon which you can use to change the
+            world.&quot; — Nelson Mandela
+          </p>
         </motion.div>
 
         {/* Right: Form */}

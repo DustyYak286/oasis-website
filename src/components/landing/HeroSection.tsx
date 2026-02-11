@@ -5,8 +5,11 @@ import { ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout";
 import { WavyBackground } from "@/components/ui/wavy-background";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
 export function HeroSection() {
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+
   const scrollToSection = (id: string) => {
     const element = document.querySelector(id);
     if (element) {
@@ -28,34 +31,38 @@ export function HeroSection() {
           <div className="text-center max-w-4xl mx-auto">
           {/* Headline */}
           <motion.h1
-            className="text-[2rem] [@media(min-width:360px)]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-gray-900 mb-5 sm:mb-6"
+            className="text-[2rem] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-gray-900 mb-5 sm:mb-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             Bringing Quality Education{" "}
             <span className="text-oasis-primary drop-shadow-[0_2px_4px_rgba(255,255,255,0.8)]">
-              {"Anywhere".split("").map((letter, index) => (
-                <motion.span
-                  key={index}
-                  className="inline-block"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.4,
-                    delay: 0.8 + index * 0.05,
-                    ease: [0.215, 0.61, 0.355, 1]
-                  }}
-                >
-                  {letter}
-                </motion.span>
-              ))}
+              {isDesktop ? (
+                "Anywhere".split("").map((letter, index) => (
+                  <motion.span
+                    key={index}
+                    className="inline-block"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.4,
+                      delay: 0.8 + index * 0.05,
+                      ease: [0.215, 0.61, 0.355, 1]
+                    }}
+                  >
+                    {letter}
+                  </motion.span>
+                ))
+              ) : (
+                "Anywhere"
+              )}
             </span>
           </motion.h1>
 
           {/* Subheadline */}
           <motion.p
-            className="text-base [@media(min-width:360px)]:text-lg sm:text-xl text-black mb-7 sm:mb-8 max-w-2xl mx-auto leading-relaxed"
+            className="text-base sm:text-xl text-black mb-7 sm:mb-8 max-w-2xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}

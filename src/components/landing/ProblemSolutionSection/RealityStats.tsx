@@ -43,12 +43,12 @@ export function RealityStats({ startAnimation }: RealityStatsProps) {
                 suffix={stat.suffix}
                 label={stat.label}
                 className="mb-4"
-                valueClassName="text-4xl [@media(min-width:360px)]:text-5xl sm:text-6xl lg:text-7xl text-white"
+                valueClassName="text-4xl sm:text-6xl lg:text-7xl text-white"
                 startAnimation={startAnimation}
                 animationDelay={index * 50}
               />
               <p
-                className="text-sm [@media(min-width:360px)]:text-base lg:text-lg leading-relaxed max-w-xs mx-auto"
+                className="text-sm sm:text-base lg:text-lg leading-relaxed max-w-xs mx-auto"
                 style={{ color: "var(--background)", opacity: startAnimation ? 1 : 0, transition: "opacity 0.5s ease-out", transitionDelay: `${index * 50 + 300}ms` }}
               >
                 {stat.context}

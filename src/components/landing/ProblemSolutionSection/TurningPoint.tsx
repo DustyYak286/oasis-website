@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 const headlines = [
   "Learning didn't require the internet.",
   "Education didn't depend on a power grid.",
-  "Every classroom had its own digital library.",
+  "Classrooms had their own digital libraries.",
 ];
 
 export function TurningPoint() {
@@ -48,7 +48,7 @@ export function TurningPoint() {
         viewport={{ once: true, margin: "-30%" }}
       >
         <motion.p
-          className="text-white text-base [@media(min-width:360px)]:text-lg sm:text-xl font-medium mb-7 sm:mb-8"
+          className="text-white text-base sm:text-xl font-medium mb-7 sm:mb-8"
           variants={{
             hidden: { opacity: 0, y: 20 },
             visible: { opacity: 1, y: 0 },
@@ -62,7 +62,7 @@ export function TurningPoint() {
           {headlines.map((headline, index) => (
             <motion.h2
               key={index}
-              className="text-xl [@media(min-width:360px)]:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight"
+              className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight"
               variants={{
                 hidden: { opacity: 0, y: 30 },
                 visible: { opacity: 1, y: 0 },
@@ -86,8 +86,7 @@ export function TurningPoint() {
           transition={{ duration: 0.8, delay: 1.9 }}
         >
           <span
-            className="inline-block text-2xl [@media(min-width:360px)]:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white"
-            style={{ textShadow: '0 0 30px rgba(107, 163, 240, 0.6), 0 0 60px rgba(107, 163, 240, 0.3)' }}
+            className="inline-block text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white"
           >
             This is Oasis.
           </span>

@@ -18,9 +18,9 @@ const features = [
   {
     icon: BatteryLow,
     title: "Runs on Almost Nothing",
-    subtitle: "Less than 10 watts per device",
+    subtitle: "Less than 15 watts per device",
     description:
-      "While traditional digital learning centers demand hundreds of watts, Oasis needs less power than a single light bulb. It works even where electricity is limited or intermittent.",
+      "While traditional digital learning centers demand hundreds of watts, Oasis needs less power than a single light bulb. It works even where electricity is limited.",
     imagePlaceholder: "Device with power efficiency visual",
     imagePosition: "left" as const,
     image: "/images/oasis-png2.png",
@@ -30,27 +30,30 @@ const features = [
     title: "Curriculum at Their Fingertips",
     subtitle: "Teacher-Controlled Content",
     description:
-      "Teachers curate and upload curriculum-aligned materials, presentations, and assessments. Entire classrooms access content simultaneously—truly shared learning.",
+      "Teachers curate and upload curriculum-aligned materials, presentations, and assessments. Entire classrooms access content simultaneously. This is what we call 'truly shared learning.'",
     imagePlaceholder: "Teacher upload interface concept",
     imagePosition: "right" as const,
+    image: "/images/oasis-png3.png",
   },
   {
     icon: Bot,
     title: "A Tutor for Every Student",
     subtitle: "AI-Powered Learning Assistant",
     description:
-      "An intelligent assistant that adapts to each student's pace, answers questions, explains difficult concepts, and guides independent study—all while completely offline.",
+      "An intelligent assistant that adapts to each student's pace, answers questions, explains difficult concepts, and guides independent study. All while completely offline.",
     imagePlaceholder: "Student using AI chat interface",
     imagePosition: "left" as const,
+    image: "/images/oasis-png4.png",
   },
   {
     icon: BarChart3,
     title: "Track Progress in Real Time",
     subtitle: "Built-In Analytics Dashboard",
     description:
-      "Teachers monitor student performance, identify struggling learners, and adapt instruction based on real-time insights—all without sending data to the cloud.",
+      "Teachers monitor student performance, identify struggling learners, and adapt instruction based on real-time insights. All without sending data to the cloud.",
     imagePlaceholder: "Teacher viewing analytics dashboard",
     imagePosition: "right" as const,
+    image: "/images/oasis-png5.png",
   },
 ];
 
@@ -129,11 +132,11 @@ export function SolutionFeatures() {
                   </span>
                 </div>
 
-                <h3 className="text-xl [@media(min-width:360px)]:text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4" style={{ color: 'var(--background)' }}>
+                <h3 className="text-xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4" style={{ color: 'var(--background)' }}>
                   {feature.title}
                 </h3>
 
-                <p className="text-base [@media(min-width:360px)]:text-lg leading-relaxed" style={{ color: 'var(--background)' }}>
+                <p className="text-base sm:text-lg leading-relaxed" style={{ color: 'var(--background)' }}>
                   {feature.description}
                 </p>
               </motion.div>
