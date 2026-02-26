@@ -136,7 +136,7 @@ export function ImpactSection() {
         ))}
       </motion.div>
 
-      {/* Testimonials */}
+      {/* Testimonials - temporarily disabled until real testimonials are available
       <motion.div
         className="relative max-w-4xl mx-auto"
         initial={{ opacity: 0, y: 20 }}
@@ -179,7 +179,6 @@ export function ImpactSection() {
               </AnimatePresence>
             </div>
 
-            {/* Navigation */}
             <div className="flex flex-wrap items-center justify-between gap-4 mt-8 pt-6 border-t border-gray-200">
               <div className="flex gap-2">
                 {testimonials.map((_, index) => (
@@ -219,6 +218,7 @@ export function ImpactSection() {
           </CardContent>
         </Card>
       </motion.div>
+      */}
     </Section>
   );
 }

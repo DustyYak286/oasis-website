@@ -1,5 +1,7 @@
 "use client";
 
+import { useRef } from "react";
+import { useInView, useReducedMotion } from "motion/react";
 import { AnimatedStat } from "./AnimatedStat";
 
 const stats = [
@@ -26,14 +28,18 @@ const stats = [
   },
 ];
 
-interface RealityStatsProps {
-  startAnimation?: boolean;
-}
+export function RealityStats() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { once: true, amount: 0.5 });
+  const shouldReduceMotion = useReducedMotion();
+  const startAnimation = shouldReduceMotion || isInView;
 
-export function RealityStats({ startAnimation }: RealityStatsProps) {
   return (
     <div className="bg-gray-900">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-14 sm:pb-16 lg:pt-12 lg:pb-24">
+      <div
+        ref={containerRef}
+        className="container mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-14 sm:pb-16 lg:pt-12 lg:pb-24"
+      >
         {/* Stats Grid - 3 columns on desktop, stacked on mobile */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-7 sm:gap-8 lg:gap-12">
           {stats.map((stat, index) => (
@@ -49,7 +55,16 @@ export function RealityStats({ startAnimation }: RealityStatsProps) {
               />
               <p
                 className="text-sm sm:text-base lg:text-lg leading-relaxed max-w-xs mx-auto"
-                style={{ color: "var(--background)", opacity: startAnimation ? 1 : 0, transition: "opacity 0.5s ease-out", transitionDelay: `${index * 50 + 300}ms` }}
+                style={
+                  shouldReduceMotion
+                    ? { color: "var(--background)", opacity: 1 }
+                    : {
+                        color: "var(--background)",
+                        opacity: startAnimation ? 1 : 0,
+                        transition: "opacity 0.5s ease-out",
+                        transitionDelay: `${index * 50 + 300}ms`,
+                      }
+                }
               >
                 {stat.context}
               </p>

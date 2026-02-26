@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, useInView } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 
 interface AnimatedStatProps {
   value: number;
@@ -12,7 +12,7 @@ interface AnimatedStatProps {
   className?: string;
   valueClassName?: string;
   duration?: number;
-  startAnimation?: boolean;
+  startAnimation: boolean;
   animationDelay?: number;
 }
 
@@ -30,63 +30,77 @@ export function AnimatedStat({
 }: AnimatedStatProps) {
   const [displayValue, setDisplayValue] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
   const hasAnimated = useRef(false);
-  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
-
-  // Determine if we should start based on external trigger or inView
-  const shouldStart = startAnimation !== undefined ? startAnimation : isInView;
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     // Only start animation when triggered and hasn't animated yet
-    if (!shouldStart || hasAnimated.current) return;
+    if (!startAnimation || hasAnimated.current) return;
+
+    if (shouldReduceMotion) {
+      return;
+    }
     hasAnimated.current = true;
 
     // Handle visibility with delay
-    const visibilityTimer = setTimeout(() => {
+    const visibilityTimer = window.setTimeout(() => {
       setIsVisible(true);
     }, animationDelay);
 
-    return () => clearTimeout(visibilityTimer);
-  }, [shouldStart, animationDelay]);
+    return () => window.clearTimeout(visibilityTimer);
+  }, [startAnimation, animationDelay, shouldReduceMotion, value]);
 
   useEffect(() => {
-    if (!isVisible) return;
+    if (!isVisible || shouldReduceMotion) return;
 
-    const steps = 60;
-    const stepInterval = duration / steps;
-    const increment = value / steps;
-    let current = 0;
+    let animationFrameId = 0;
+    let startTime: number | null = null;
+    const isDecimalValue = value % 1 !== 0;
 
-    const timer = setInterval(() => {
-      current += increment;
-      if (current >= value) {
-        setDisplayValue(value);
-        clearInterval(timer);
-      } else {
-        // Handle decimals properly
-        if (value % 1 !== 0) {
-          setDisplayValue(Math.round(current * 10) / 10);
-        } else {
-          setDisplayValue(Math.floor(current));
-        }
+    const normalizeValue = (raw: number) => {
+      if (isDecimalValue) {
+        return Math.round(raw * 10) / 10;
       }
-    }, stepInterval);
+      return Math.floor(raw);
+    };
 
-    return () => clearInterval(timer);
-  }, [isVisible, value, duration]);
+    const animateValue = (timestamp: number) => {
+      if (startTime === null) {
+        startTime = timestamp;
+      }
+
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const nextValue = normalizeValue(value * progress);
+
+      setDisplayValue((previousValue) =>
+        previousValue === nextValue ? previousValue : nextValue
+      );
+
+      if (progress < 1) {
+        animationFrameId = window.requestAnimationFrame(animateValue);
+        return;
+      }
+
+      setDisplayValue(value);
+    };
+
+    animationFrameId = window.requestAnimationFrame(animateValue);
+
+    return () => window.cancelAnimationFrame(animationFrameId);
+  }, [isVisible, value, duration, shouldReduceMotion]);
 
   // Format the display value
-  const formattedValue = value % 1 !== 0
-    ? displayValue.toFixed(1)
-    : displayValue.toLocaleString();
+  const isStatVisible = shouldReduceMotion ? startAnimation : isVisible;
+  const renderedValue = shouldReduceMotion && startAnimation ? value : displayValue;
+  const formattedValue =
+    value % 1 !== 0 ? renderedValue.toFixed(1) : renderedValue.toLocaleString();
 
   return (
     <motion.div
-      ref={containerRef}
       className={className}
       initial={{ opacity: 0, y: 20 }}
-      animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      animate={isStatVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
       transition={{ duration: 0.5 }}
     >
       <div className={`font-bold ${valueClassName}`}>
