@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { Section } from "@/components/layout";
@@ -8,10 +8,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 const metrics = [
-  { value: 5, suffix: "+", label: "Pilot Schools", color: "text-oasis-primary" },
-  { value: 500, suffix: "+", label: "Students Reached", color: "text-oasis-accent-green" },
-  { value: 95, suffix: "%", label: "Teacher Satisfaction", color: "text-oasis-primary" },
-  { value: 40, suffix: "%", label: "Learning Improvement", color: "text-oasis-accent-red" },
+  { value: 0, suffix: "", label: "Pilot Schools", color: "text-oasis-primary" },
+  { value: 0, suffix: "", label: "Students Reached", color: "text-oasis-accent-green" },
+  { value: 0, suffix: "", label: "Countries Reached", color: "text-oasis-primary" },
+  { value: 4, suffix: "", label: "SDGs Aligned", color: "text-oasis-accent-green" },
 ];
 
 const testimonials = [
@@ -46,10 +46,11 @@ function getQuoteSizeClass(quoteLength: number): string {
 
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
   const [count, setCount] = useState(0);
-  const [hasAnimated, setHasAnimated] = useState(false);
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
-    if (hasAnimated) return;
+    if (hasAnimated.current || value === 0) return;
+    hasAnimated.current = true;
 
     const duration = 2000;
     const steps = 60;
@@ -66,9 +67,8 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
       }
     }, duration / steps);
 
-    setHasAnimated(true);
     return () => clearInterval(timer);
-  }, [value, hasAnimated]);
+  }, [value]);
 
   return (
     <span>

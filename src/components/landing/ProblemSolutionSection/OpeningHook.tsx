@@ -5,16 +5,18 @@ import Image from "next/image";
 
 export function OpeningHook() {
   return (
-    <div className="min-h-[100svh] md:min-h-screen bg-gray-900 relative overflow-hidden">
+    <div className="min-h-[100svh] md:min-h-screen bg-gray-900 relative overflow-hidden isolate">
       {/* Cloud transition from white Hero */}
-      <div className="absolute top-0 left-0 right-0 h-16 z-20 pointer-events-none">
-        {/* Main gradient fade */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-white/50 to-transparent" />
-        {/* Soft cloud shapes using layered blurs */}
-        <div className="absolute -top-6 left-[10%] w-[30%] h-12 bg-white/80 rounded-full blur-2xl" />
-        <div className="absolute -top-4 left-[40%] w-[25%] h-10 bg-white/70 rounded-full blur-xl" />
-        <div className="absolute -top-5 right-[15%] w-[20%] h-10 bg-white/60 rounded-full blur-2xl" />
-        <div className="absolute -top-3 left-[65%] w-[15%] h-8 bg-white/50 rounded-full blur-xl" />
+      <div className="absolute top-0 left-0 right-0 h-16 sm:h-24 z-20 pointer-events-none">
+        {/* Keep transition soft without blur filters to avoid mobile artifact blocks */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-white/70 sm:via-white/80 to-transparent" />
+        <div
+          className="absolute inset-0 hidden sm:block"
+          style={{
+            backgroundImage:
+              "radial-gradient(60% 70% at 18% 0%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0) 75%), radial-gradient(46% 64% at 50% 0%, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0) 72%), radial-gradient(38% 60% at 82% 0%, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 74%)",
+          }}
+        />
       </div>
 
       {/* Background - solid to match RealityStats */}
@@ -24,7 +26,7 @@ export function OpeningHook() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-7 sm:gap-8 lg:gap-4 items-center w-full py-20 sm:py-24 lg:py-0">
           {/* Image Section - 60% on desktop */}
           <motion.div
-            className="lg:col-span-3 relative"
+            className="lg:col-span-3 relative mt-8 sm:mt-10 lg:mt-0"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-30%" }}
