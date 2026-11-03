@@ -9,6 +9,24 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
+  /* Deck palette (shared with the AI Beyond slides) */
+  --color-ink: #0F1B33;
+  --color-navy: #0B1630;
+  --color-night: #070E21;
+  --color-slate: #5B6478;
+  --color-mist: #8A94A8;
+  --color-blue: #3F84E5;
+  --color-deep: #2C64C8;
+  --color-sky: #8CB8F2;
+  --color-tint: #EAF2FD;
+  --color-paper: #F5F8FC;
+  --color-line: #E3E8F0;
+  --color-sage: #7DABAD;
+  --color-mint: #9CC9B0;
+  --color-leaf: #468657;
+  --color-ruby: #B20D30;
+  --color-blush: #F0E2E7;
+
   /* Oasis Brand Colors */
   --color-oasis-primary: var(--oasis-primary);
   --color-oasis-primary-dark: var(--oasis-primary-dark);
@@ -138,5 +156,58 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  ::selection {
+    background: #cfe0f9;
+    color: #0f1b33;
+  }
+}
+
+/* Film grain on dark sections, like the deck backgrounds */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Night sky gradient used behind the aurora wave */
+.bg-night-sky {
+  background:
+    radial-gradient(120% 90% at 22% 18%, #172a57 0%, #0e1b3d 38%, #070e21 78%);
+}
+
+/* Marching dashes for the classroom diagram */
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+.dash-flow {
+  animation: dash-flow 1.2s linear infinite;
+}
+
+@keyframes wifi-pulse {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 1; }
+}
+
+@keyframes ring-ping {
+  0% { transform: scale(0.85); opacity: 0.8; }
+  80%, 100% { transform: scale(1.5); opacity: 0; }
+}
+
+@keyframes status-ping {
+  0% { transform: scale(1); opacity: 0.7; }
+  80%, 100% { transform: scale(2.6); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dash-flow,
+  .motion-safe-anim {
+    animation: none !important;
   }
 }

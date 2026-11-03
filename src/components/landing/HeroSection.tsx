@@ -1,114 +1,67 @@
 "use client";
 
-import { motion } from "motion/react";
-import { ArrowDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { motion, useReducedMotion } from "motion/react";
+import { ArrowDown, ArrowRight } from "lucide-react";
 import { Container } from "@/components/layout";
-import { WavyBackground } from "@/components/ui/wavy-background";
-import { useMediaQuery } from "@/hooks/use-media-query";
+import { Aurora } from "@/components/ui/aurora";
+
+const ease = [0.22, 1, 0.36, 1] as const;
 
 export function HeroSection() {
-  const isDesktop = useMediaQuery("(min-width: 768px)");
-
-  const scrollToSection = (id: string) => {
-    const element = document.querySelector(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const reduce = useReducedMotion();
+  const rise = (delay: number) =>
+    reduce
+      ? {}
+      : {
+          initial: { opacity: 0, y: 22 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0.9, delay, ease },
+        };
 
   return (
-    <section className="relative overflow-hidden">
-      <WavyBackground
-        colors={["#3F84E5", "#6BA3F0", "#468657", "#2A5BA8"]}
-        backgroundFill="white"
-        waveOpacity={0.3}
-        blur={15}
-        speed="slow"
-        containerClassName="min-h-[100svh] md:min-h-screen"
-      >
-        <Container className="relative z-10 pt-20 pb-14 sm:pt-24 sm:pb-16 md:py-0">
-          <div className="text-center max-w-4xl mx-auto">
-          {/* Headline */}
+    <section
+      id="top"
+      className="grain bg-night-sky relative isolate flex min-h-[100svh] items-center overflow-hidden text-white"
+    >
+      <Aurora className="-z-10" baseline={0.8} tilt={-0.14} />
+
+      <Container className="w-full pb-36 pt-28 sm:pb-40 md:pb-44">
+        <div className="max-w-3xl">
           <motion.h1
-            className="text-[2rem] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-gray-900 mb-5 sm:mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            {...rise(0.1)}
+            className="text-[2.75rem] font-semibold leading-[1.02] tracking-[-0.035em] sm:text-6xl lg:text-[5.25rem]"
           >
-            Bringing Quality Education{" "}
-            <span className="text-oasis-primary drop-shadow-[0_2px_4px_rgba(255,255,255,0.8)]">
-              {isDesktop ? (
-                "Anywhere".split("").map((letter, index) => (
-                  <motion.span
-                    key={index}
-                    className="inline-block"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                      duration: 0.4,
-                      delay: 0.7 + index * 0.05,
-                      ease: [0.215, 0.61, 0.355, 1]
-                    }}
-                  >
-                    {letter}
-                  </motion.span>
-                ))
-              ) : (
-                "Anywhere"
-              )}
-            </span>
+            Quality education,
+            <br />
+            <span className="text-sky">anywhere.</span>
           </motion.h1>
 
-          {/* Subheadline */}
           <motion.p
-            className="text-base sm:text-xl text-black mb-7 sm:mb-8 max-w-2xl mx-auto leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            {...rise(0.25)}
+            className="mt-6 max-w-xl text-lg leading-relaxed text-white/75 sm:mt-7 sm:text-xl"
           >
-            A self-contained educational platform for schools without stable
-            internet or electricity. Empowering students and teachers in
-            underserved communities worldwide.
+            Oasis gives a classroom its own server, with lessons, quizzes and an
+            AI assistant that work without the internet.
           </motion.p>
 
-          {/* CTAs */}
-          <motion.div
-            className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            <Button
-              size="lg"
-              onClick={() => scrollToSection("#story")}
-              className="bg-oasis-primary hover:bg-oasis-primary-dark text-white px-8 py-6 text-lg w-full sm:w-auto"
+          <motion.div {...rise(0.4)} className="mt-9 flex flex-col gap-3 sm:mt-10 sm:flex-row">
+            <a
+              href="#how-it-works"
+              className="group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-6 text-[15px] font-medium text-ink transition-colors hover:bg-tint"
             >
-              Learn More
-              <ArrowDown className="ml-2 h-5 w-5" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              onClick={() => scrollToSection("#contact")}
-              className="border-oasis-primary text-oasis-primary hover:bg-oasis-primary hover:text-white px-8 py-6 text-lg w-full sm:w-auto"
+              See how it works
+              <ArrowDown className="size-4 transition-transform group-hover:translate-y-0.5" />
+            </a>
+            <a
+              href="#contact"
+              className="group inline-flex h-12 items-center justify-center gap-2 rounded-full border border-white/25 px-6 text-[15px] font-medium text-white transition-colors hover:border-white/50 hover:bg-white/5"
             >
-              Get Involved
-            </Button>
+              Get in touch
+              <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+            </a>
           </motion.div>
-
-          </div>
-        </Container>
-      </WavyBackground>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-20"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
-        <ArrowDown className="h-6 w-6 text-gray-400" />
-      </motion.div>
+        </div>
+      </Container>
     </section>
   );
 }

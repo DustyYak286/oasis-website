@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { SITE_URL } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -12,34 +13,37 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const title = "Oasis | Quality education, anywhere";
+const description =
+  "Oasis gives a classroom its own server, with lessons, quizzes and an AI assistant that work without the internet.";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://oasis-edu.org"),
-  title: "Oasis - Bringing Quality Education Anywhere",
-  description:
-    "A sustainable, offline-first educational platform for schools without internet connectivity or stable electricity. Join us in bridging the global education gap.",
+  metadataBase: new URL(SITE_URL),
+  title,
+  description,
   keywords: [
-    "education",
     "offline learning",
-    "sustainable technology",
+    "offline AI",
+    "edge AI",
+    "education",
     "Raspberry Pi",
-    "educational platform",
     "EdTech",
-    "rural education",
     "UNESCO",
+    "MENA",
   ],
-  authors: [{ name: "Oasis Team" }],
+  authors: [{ name: "Oasis" }],
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Oasis - Bringing Quality Education Anywhere",
-    description:
-      "Sustainable offline education for underserved schools worldwide.",
-    url: "https://oasis-edu.org",
+    title,
+    description,
+    url: SITE_URL,
     siteName: "Oasis",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Oasis Educational Platform",
+        alt: "Oasis: quality education, anywhere",
       },
     ],
     locale: "en_US",
@@ -47,15 +51,18 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Oasis - Bringing Quality Education Anywhere",
-    description:
-      "Sustainable offline education for underserved schools worldwide.",
-    images: ["/og-image.png"],
+    title,
+    description,
+    images: ["/og-image.jpg"],
   },
   robots: {
     index: true,
     follow: true,
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#070E21",
 };
 
 export default function RootLayout({

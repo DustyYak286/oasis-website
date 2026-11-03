@@ -1,9 +1,12 @@
 import { Header, Footer } from "@/components/layout";
 import {
   HeroSection,
-  ProblemSolutionSection,
-  ImpactSection,
-  CTASection,
+  ProblemSection,
+  HowItWorksSection,
+  PlatformSection,
+  AISection,
+  StorySection,
+  ContactSection,
 } from "@/components/landing";
 
 export default function Home() {
@@ -12,9 +15,12 @@ export default function Home() {
       <Header />
       <main>
         <HeroSection />
-        <ProblemSolutionSection />
-        <ImpactSection />
-        <CTASection />
+        <ProblemSection />
+        <HowItWorksSection />
+        <PlatformSection />
+        <AISection />
+        <StorySection />
+        <ContactSection />
       </main>
       <Footer />
     </>

@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // The old placeholder pages now live as sections on the home page.
+  async redirects() {
+    return [
+      { source: "/about", destination: "/#story", permanent: false },
+      { source: "/blog", destination: "/", permanent: false },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -24,7 +24,7 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 1. Copy `.env.example` to `.env.local`.
 2. Set `NEXT_PUBLIC_FORMSPREE_ENDPOINT` to your Formspree endpoint (format: `https://formspree.io/f/<form_id>`).
-3. In Formspree, configure notifications so submissions are sent to `contact@oasis-edu.org`.
+3. In Formspree, configure notifications so submissions reach the address in `CONTACT_EMAIL` (`src/lib/site.ts`).
 4. Verify the recipient mailbox/notification settings in Formspree.
 5. In production (for example Vercel), set the same `NEXT_PUBLIC_FORMSPREE_ENDPOINT` environment variable.
 

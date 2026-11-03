@@ -1,4 +1,7 @@
 export { HeroSection } from "./HeroSection";
-export { ProblemSolutionSection } from "./ProblemSolutionSection";
-export { ImpactSection } from "./ImpactSection";
-export { CTASection } from "./CTASection";
+export { ProblemSection } from "./ProblemSection";
+export { HowItWorksSection } from "./HowItWorksSection";
+export { PlatformSection } from "./PlatformSection";
+export { AISection } from "./AISection";
+export { StorySection } from "./StorySection";
+export { ContactSection } from "./ContactSection";

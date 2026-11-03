@@ -1,90 +1,54 @@
-import Link from "next/link";
 import Image from "next/image";
 import { Container } from "./Container";
+import { CONTACT_EMAIL } from "@/lib/site";
 
-const footerLinks = {
-  navigation: [
-    { href: "#problem", label: "The Problem" },
-    { href: "#solution", label: "Our Solution" },
-    { href: "#how-it-works", label: "How It Works" },
-    { href: "#impact", label: "Impact" },
-    { href: "#contact", label: "Contact" },
-  ],
-  legal: [
-    { href: "/privacy", label: "Privacy Policy" },
-    { href: "/terms", label: "Terms of Service" },
-  ],
-};
+const links = [
+  { href: "#how-it-works", label: "How it works" },
+  { href: "#platform", label: "Platform" },
+  { href: "#story", label: "Our story" },
+  { href: "#contact", label: "Contact" },
+];
 
 export function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-300">
-      <Container className="py-10 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-7 md:gap-8">
-          {/* Brand */}
-          <div className="md:col-span-2">
+    <footer className="bg-night text-white/60">
+      <Container className="py-12">
+        <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
+          <div>
             <Image
-              src="/images/oasis-logo.png"
+              src="/images/logo-white.png"
               alt="Oasis"
-              width={140}
-              height={56}
-              className="h-10 w-auto brightness-0 invert mb-4"
+              width={870}
+              height={276}
+              className="h-8 w-auto"
             />
-            <p className="text-sm text-gray-400 max-w-sm">
-              Bringing quality education to schools without stable internet or
-              electricity. A sustainable, offline-first educational platform.
+            <p className="mt-4 max-w-xs text-sm leading-relaxed">
+              Offline learning for classrooms the internet doesn&apos;t reach.
             </p>
           </div>
 
-          {/* Navigation */}
-          <div>
-            <h3 className="font-semibold text-white mb-4">Navigation</h3>
-            <ul className="space-y-2">
-              {footerLinks.navigation.map((link) => (
+          <div className="flex flex-col gap-10 sm:flex-row sm:gap-16">
+            <ul className="space-y-2.5 text-sm">
+              {links.map((link) => (
                 <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-gray-400 hover:text-white transition-colors"
-                  >
+                  <a href={link.href} className="transition-colors hover:text-white">
                     {link.label}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
-          </div>
-
-          {/* Contact Info */}
-          <div>
-            <h3 className="font-semibold text-white mb-4">Get in Touch</h3>
-            <ul className="space-y-2 text-sm text-gray-400">
+            <ul className="space-y-2.5 text-sm">
               <li>
-                <a
-                  href="mailto:contact@oasis-edu.org"
-                  className="hover:text-white transition-colors"
-                >
-                  contact@oasis-edu.org
+                <a href={`mailto:${CONTACT_EMAIL}`} className="transition-colors hover:text-white">
+                  {CONTACT_EMAIL}
                 </a>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-10 md:mt-12 pt-7 md:pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
-          <p className="text-sm text-gray-500">
-            &copy; {new Date().getFullYear()} Oasis. All rights reserved.
-          </p>
-          <div className="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2">
-            {footerLinks.legal.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
+        <div className="mt-12 border-t border-white/10 pt-6 text-xs text-white/40">
+          &copy; {new Date().getFullYear()} Oasis
         </div>
       </Container>
     </footer>
