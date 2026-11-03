@@ -5,7 +5,8 @@ import {
   HowItWorksSection,
   PlatformSection,
   AISection,
-  StorySection,
+  AboutSection,
+  FAQSection,
   ContactSection,
 } from "@/components/landing";
 
@@ -19,7 +20,8 @@ export default function Home() {
         <HowItWorksSection />
         <PlatformSection />
         <AISection />
-        <StorySection />
+        <AboutSection />
+        <FAQSection />
         <ContactSection />
       </main>
       <Footer />

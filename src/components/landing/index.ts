@@ -3,5 +3,6 @@ export { ProblemSection } from "./ProblemSection";
 export { HowItWorksSection } from "./HowItWorksSection";
 export { PlatformSection } from "./PlatformSection";
 export { AISection } from "./AISection";
-export { StorySection } from "./StorySection";
+export { AboutSection } from "./AboutSection";
+export { FAQSection } from "./FAQSection";
 export { ContactSection } from "./ContactSection";
