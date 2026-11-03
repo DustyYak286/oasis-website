@@ -2,6 +2,7 @@ import Image from "next/image";
 import { BookOpen, Languages, ListChecks, Sparkles } from "lucide-react";
 import { Container } from "@/components/layout";
 import { BrowserFrame } from "@/components/ui/browser-frame";
+import { PhoneFrame } from "@/components/ui/phone-frame";
 import { Reveal } from "@/components/ui/reveal";
 import { DEVICE_URL } from "@/lib/site";
 
@@ -38,7 +39,7 @@ export function PlatformSection() {
           </h2>
         </Reveal>
 
-        <div className="mt-14 grid items-center gap-14 lg:grid-cols-[19rem_1fr] lg:gap-16">
+        <div className="mt-14 grid items-center gap-14 pb-10 sm:pb-14 lg:grid-cols-[19rem_1fr] lg:gap-20">
           <ul className="grid gap-7 sm:grid-cols-2 lg:grid-cols-1">
             {features.map((f, i) => (
               <Reveal as="li" key={f.title} delay={i * 0.06} className="flex gap-4">
@@ -71,6 +72,17 @@ export function PlatformSection() {
                 />
               </div>
             </BrowserFrame>
+
+            <PhoneFrame className="absolute -bottom-10 right-3 w-[36%] max-w-[15rem] sm:-bottom-14 sm:-right-4 sm:w-[23%] lg:-right-8">
+              <Image
+                src="/images/product/student-quiz.png"
+                alt="A student answering a quiz question about fractions on a phone"
+                width={780}
+                height={1688}
+                sizes="(min-width: 640px) 240px, 36vw"
+                className="h-auto w-full"
+              />
+            </PhoneFrame>
           </Reveal>
         </div>
       </Container>
