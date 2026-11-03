@@ -1,142 +1,161 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import { Container } from "./Container";
 
 const navLinks = [
-  { href: "/", label: "Product", isAnchor: false },
-  { href: "/about", label: "About Us", isAnchor: false },
-  { href: "/blog", label: "Blog", isAnchor: false },
+  { href: "#how-it-works", label: "How it works" },
+  { href: "#platform", label: "Platform" },
+  { href: "#story", label: "Our story" },
 ];
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const pathname = usePathname();
+  // "onDark" while the header floats over the dark hero.
+  const [onDark, setOnDark] = useState(true);
 
-  const scrollToSection = (href: string) => {
-    setIsMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  useEffect(() => {
+    const update = () => {
+      const hero = document.getElementById("top");
+      setOnDark(hero ? hero.getBoundingClientRect().bottom > 64 : false);
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
 
-  const handleNavClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    link: { href: string; isAnchor: boolean }
-  ) => {
+  const dark = onDark && !isMenuOpen;
+
+  const go = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     setIsMenuOpen(false);
-    if (link.isAnchor) {
+    const el = document.querySelector(href);
+    if (el) {
       e.preventDefault();
-      scrollToSection(link.href);
-    } else if (link.href === "/" && pathname === "/") {
-      // Prevent navigation and scroll to top if already on home page
-      e.preventDefault();
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      el.scrollIntoView({ behavior: "smooth" });
+      history.replaceState(null, "", href);
     }
-    // For other pages, Link component will handle navigation normally
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300",
+        dark
+          ? "border-b border-transparent bg-transparent"
+          : "border-b border-line/80 bg-white/85 backdrop-blur-md"
+      )}
+    >
       <Container>
-        <nav className="flex items-center justify-between h-14 md:h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center py-1">
+        <nav className="flex h-16 items-center justify-between" aria-label="Main">
+          <Link
+            href="/"
+            className="relative flex items-center"
+            onClick={(e) => {
+              if (window.location.pathname === "/") {
+                e.preventDefault();
+                setIsMenuOpen(false);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+            }}
+          >
+            <span className="sr-only">Oasis home</span>
             <Image
-              src="/images/oasis-logo.png"
-              alt="Oasis"
-              width={120}
-              height={48}
-              className="h-7 sm:h-8 md:h-10 w-auto"
+              src="/images/logo-white.png"
+              alt=""
+              width={870}
+              height={276}
               priority
+              className={cn("h-7 w-auto transition-opacity duration-300 sm:h-8", dark ? "opacity-100" : "opacity-0")}
+            />
+            <Image
+              src="/images/logo.png"
+              alt=""
+              width={870}
+              height={276}
+              priority
+              className={cn(
+                "absolute left-0 top-0 h-7 w-auto transition-opacity duration-300 sm:h-8",
+                dark ? "opacity-0" : "opacity-100"
+              )}
             />
           </Link>
 
-          {/* Desktop Navigation - Centered */}
-          <div className="hidden md:flex items-center gap-2 absolute left-1/2 transform -translate-x-1/2">
-            {navLinks.map((link, index) => {
-              const isActive = pathname === link.href;
-              return (
-                <div key={link.href} className="flex items-center">
-                  {index > 0 && (
-                    <span className="text-gray-400 mx-2">/</span>
-                  )}
-                  <Link
-                    href={link.href}
-                    onClick={(e) => handleNavClick(e, link)}
-                    className={cn(
-                      "text-sm font-medium text-gray-600 hover:text-oasis-primary transition-colors",
-                      isActive && "underline decoration-2 underline-offset-4 decoration-oasis-primary"
-                    )}
-                  >
-                    {link.label}
-                  </Link>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Get Involved Button */}
-          <div className="hidden md:flex">
-            <Button
-              onClick={() => scrollToSection("#contact")}
-              className="bg-oasis-primary hover:bg-oasis-primary-dark"
+          <div className="hidden items-center gap-8 md:flex">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => go(e, link.href)}
+                className={cn(
+                  "text-sm font-medium transition-colors",
+                  dark ? "text-white/75 hover:text-white" : "text-slate hover:text-ink"
+                )}
+              >
+                {link.label}
+              </a>
+            ))}
+            <a
+              href="#contact"
+              onClick={(e) => go(e, "#contact")}
+              className={cn(
+                "rounded-full px-4 py-2 text-sm font-medium transition-colors",
+                dark
+                  ? "bg-white text-ink hover:bg-white/90"
+                  : "bg-blue text-white hover:bg-deep"
+              )}
             >
-              Get Involved
-            </Button>
+              Get in touch
+            </a>
           </div>
 
-          {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2.5 -mr-1"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
+            className="-mr-2 p-2.5 md:hidden"
+            onClick={() => setIsMenuOpen((open) => !open)}
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMenuOpen}
           >
             {isMenuOpen ? (
-              <X className="h-6 w-6 text-gray-600" />
+              <X className="size-6 text-ink" />
             ) : (
-              <Menu className="h-6 w-6 text-gray-600" />
+              <Menu className={cn("size-6", dark ? "text-white" : "text-ink")} />
             )}
           </button>
         </nav>
 
-        {/* Mobile Navigation */}
         <div
           className={cn(
-            "md:hidden overflow-hidden transition-all duration-300",
-            isMenuOpen ? "max-h-[calc(100svh-3.5rem)] pb-4" : "max-h-0"
+            "grid transition-[grid-template-rows] duration-300 md:hidden",
+            isMenuOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
           )}
         >
-          <div className="flex flex-col items-center gap-4 overflow-y-auto overscroll-contain max-h-[calc(100svh-3.5rem)]">
-            {navLinks.map((link) => {
-              const isActive = pathname === link.href;
-              return (
-                <Link
+          <div className="overflow-hidden">
+            <div className="flex flex-col gap-1 pb-5 pt-1">
+              {navLinks.map((link) => (
+                <a
                   key={link.href}
                   href={link.href}
-                  onClick={(e) => handleNavClick(e, link)}
-                  className={cn(
-                    "w-full text-center text-sm font-medium text-gray-600 hover:text-oasis-primary transition-colors py-1",
-                    isActive && "underline decoration-2 underline-offset-4 decoration-oasis-primary"
-                  )}
+                  onClick={(e) => go(e, link.href)}
+                  className="rounded-lg px-2 py-3 text-base font-medium text-ink hover:bg-paper"
                 >
                   {link.label}
-                </Link>
-              );
-            })}
-            <Button
-              onClick={() => scrollToSection("#contact")}
-              className="bg-oasis-primary hover:bg-oasis-primary-dark w-full min-h-10"
-            >
-              Get Involved
-            </Button>
+                </a>
+              ))}
+              <a
+                href="#contact"
+                onClick={(e) => go(e, "#contact")}
+                className="mt-2 rounded-full bg-blue px-4 py-3 text-center text-base font-medium text-white"
+              >
+                Get in touch
+              </a>
+            </div>
           </div>
         </div>
       </Container>
