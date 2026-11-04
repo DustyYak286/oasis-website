@@ -2,10 +2,21 @@
 
 import { useMemo, useState } from "react";
 import { motion } from "motion/react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { AlertCircle, ArrowUpRight, CheckCircle, Linkedin, Loader2, Mail, Send } from "lucide-react";
+import {
+  AlertCircle,
+  ArrowUpRight,
+  CheckCircle,
+  Handshake,
+  HeartHandshake,
+  Linkedin,
+  Loader2,
+  Mail,
+  School,
+  Send,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/layout";
 import { Aurora } from "@/components/ui/aurora";
@@ -34,6 +45,12 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 type FormFieldName = "name" | "email" | "organization" | "interest" | "message";
 type FormspreeError = { field?: string; message?: string };
+
+const audiences = [
+  { value: "pilot", icon: School, title: "Schools", text: "Bring Oasis to your classrooms." },
+  { value: "partnership", icon: Handshake, title: "Partners", text: "Devices, connectivity or education programs." },
+  { value: "donation", icon: HeartHandshake, title: "Supporters", text: "Help us reach more schools." },
+];
 
 const FALLBACK_SUBMIT_ERROR_MESSAGE = `Try again or email ${CONTACT_EMAIL}.`;
 const FORMSPREE_ENDPOINT = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT;
@@ -75,6 +92,8 @@ export function ContactSection() {
     setError,
     clearErrors,
     reset,
+    setValue,
+    setFocus,
     formState: { errors, touchedFields, submitCount },
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -87,6 +106,14 @@ export function ContactSection() {
       website: "",
     },
   });
+
+  const interest = useWatch({ control, name: "interest" });
+
+  const choose = (value: string) => {
+    setValue("interest", value, { shouldValidate: submitCount > 0 });
+    if (submitStatus === "success") setSubmitStatus("idle");
+    setFocus("name");
+  };
 
   const hasValidEndpoint = useMemo(
     () => isValidFormspreeEndpoint(FORMSPREE_ENDPOINT),
@@ -211,10 +238,39 @@ export function ContactSection() {
             <h2 className="text-4xl font-semibold leading-[1.08] tracking-[-0.03em] sm:text-[3.5rem]">
               AI shouldn’t stop where the internet does.
             </h2>
-            <p className="mt-7 max-w-lg text-lg leading-relaxed text-white/70">
-              If you work on edge AI, devices, connectivity or education programs, or you know a
-              school that should have Oasis, we’d love to talk.
-            </p>
+            <ul className="mt-10 grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3" aria-label="Get involved">
+              {audiences.map((a) => {
+                const selected = interest === a.value;
+                return (
+                  <li key={a.value}>
+                    <button
+                      type="button"
+                      aria-pressed={selected}
+                      onClick={() => choose(a.value)}
+                      className={cn(
+                        "group flex h-full w-full gap-4 rounded-2xl p-4 text-left ring-1 backdrop-blur-sm transition-[background-color,box-shadow] duration-300 xl:flex-col xl:gap-3 xl:p-5",
+                        selected
+                          ? "bg-white/[0.14] ring-sky/70"
+                          : "bg-white/[0.05] ring-white/15 hover:bg-white/[0.09] hover:ring-white/30"
+                      )}
+                    >
+                      <span
+                        className={cn(
+                          "grid size-10 shrink-0 place-items-center rounded-xl transition-colors",
+                          selected ? "bg-sky text-night" : "bg-white/10 text-sky"
+                        )}
+                      >
+                        <a.icon className="size-5" strokeWidth={1.8} aria-hidden="true" />
+                      </span>
+                      <span>
+                        <span className="block font-semibold text-white">{a.title}</span>
+                        <span className="mt-1 block text-sm leading-snug text-white/65">{a.text}</span>
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
 
             <div className="mt-10 space-y-3 text-[15px]">
               <a

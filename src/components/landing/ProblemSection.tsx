@@ -11,7 +11,7 @@ const OFFLINE_FROM = 75; // the last 25 of 100: one in four
 
 export function ProblemSection() {
   const gridRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(gridRef, { once: true, margin: "0px 0px -20% 0px" });
+  const inView = useInView(gridRef, { once: true, amount: 0.15 });
   const reduce = useReducedMotion();
   const on = inView || reduce;
 
@@ -67,11 +67,11 @@ export function ProblemSection() {
                         : undefined
                     }
                     transition={{
-                      opacity: { duration: 0.35, delay: (Math.floor(i / COLS) + (i % COLS)) * 0.025 },
-                      scale: { duration: 0.35, delay: (Math.floor(i / COLS) + (i % COLS)) * 0.025 },
+                      opacity: { duration: 0.3, delay: (Math.floor(i / COLS) + (i % COLS)) * 0.012 },
+                      scale: { duration: 0.3, delay: (Math.floor(i / COLS) + (i % COLS)) * 0.012 },
                       backgroundColor: {
-                        duration: 0.4,
-                        delay: offline ? 0.9 + (i - OFFLINE_FROM) * 0.035 : 0,
+                        duration: 0.35,
+                        delay: offline ? 0.3 + (i - OFFLINE_FROM) * 0.018 : 0,
                       },
                     }}
                   />

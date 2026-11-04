@@ -10,7 +10,8 @@ import { Container } from "./Container";
 const navLinks = [
   { href: "#how-it-works", label: "How it works" },
   { href: "#platform", label: "Platform" },
-  { href: "#story", label: "Our story" },
+  { href: "#about", label: "About" },
+  { href: "#faq", label: "FAQ" },
 ];
 
 export function Header() {

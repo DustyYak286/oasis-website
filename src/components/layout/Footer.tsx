@@ -5,7 +5,7 @@ import { CONTACT_EMAIL } from "@/lib/site";
 const links = [
   { href: "#how-it-works", label: "How it works" },
   { href: "#platform", label: "Platform" },
-  { href: "#story", label: "Our story" },
+  { href: "#about", label: "About" },
   { href: "#contact", label: "Contact" },
 ];
 

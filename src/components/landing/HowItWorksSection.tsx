@@ -1,8 +1,29 @@
 import Image from "next/image";
-import { CloudOff, Laptop, Leaf, Smartphone, Tablet } from "lucide-react";
+import { CloudOff, Laptop, Leaf, ShieldCheck, Smartphone, Tablet, Unplug } from "lucide-react";
 import { Container } from "@/components/layout";
 import { Reveal } from "@/components/ui/reveal";
 import { DEVICE_URL } from "@/lib/site";
+
+const benefits = [
+  {
+    icon: ShieldCheck,
+    title: "Private by design",
+    text: "Student data stays on the device, under the school's control.",
+    tone: "bg-tint text-blue",
+  },
+  {
+    icon: Leaf,
+    title: "Under 10 W of power",
+    text: "No server room and no cooling.",
+    tone: "bg-[#E7F1EA] text-leaf",
+  },
+  {
+    icon: Unplug,
+    title: "No cloud account",
+    text: "No subscription to maintain and nothing to sync.",
+    tone: "bg-blush text-ruby",
+  },
+];
 
 function Connector() {
   return (
@@ -127,12 +148,19 @@ export function HowItWorksSection() {
           </div>
         </Reveal>
 
-        <Reveal delay={0.15} className="mt-10 flex items-center gap-3 text-[15px] text-slate">
-          <Leaf className="size-5 shrink-0 text-leaf" aria-hidden="true" />
-          <p>
-            <span className="font-semibold text-ink">Under 10 W per device</span>, and no data center.
-          </p>
-        </Reveal>
+        <ul className="mt-14 grid gap-8 sm:grid-cols-3 sm:gap-10">
+          {benefits.map((b, i) => (
+            <Reveal as="li" key={b.title} delay={0.1 + i * 0.06} className="flex gap-4">
+              <span className={`grid size-11 shrink-0 place-items-center rounded-xl ${b.tone}`}>
+                <b.icon className="size-5" strokeWidth={1.8} aria-hidden="true" />
+              </span>
+              <div>
+                <p className="font-semibold text-ink">{b.title}</p>
+                <p className="mt-1 text-[15px] leading-relaxed text-slate">{b.text}</p>
+              </div>
+            </Reveal>
+          ))}
+        </ul>
       </Container>
     </section>
   );
